@@ -4,6 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
   <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=UILq5M39YnNavETRRI7Zp0uYWZ4b3ToC"></script>
+  <script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
   <!--加载检索信息窗口-->
   <script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
   <script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
@@ -27,44 +28,7 @@
     <div class="ipt-btn"></div>
   </div>
   <div class="list hide">
-    <div id="main" style="font-size: 12px" >
-      <div class="set flex-box">
-        <div class="set-name">数据类型：</div>
-        <ul class="set-com">
-          <li><input type="radio" name="radio" data-labelauty="IMSI"></li>
-          <li><input type="radio" name="radio" data-labelauty="车牌"></li>
-          <li><input type="radio" name="radio" data-labelauty="MAC"></li>
-        </ul>
-      </div>
-      <div class="set flex-box">
-        <label class="set-name1">开始时间：</label>
-        <input type="text" name="date" class="date" id="date" lay-verify="date" placeholder="请选择开始时间" autocomplete="off" class="layui-input">
-      </div>
-      <div class="set1 flex-box">
-        <label class="set-name1">结束时间：</label>
-        <input type="text" name="date" class="date" id="date1" lay-verify="date" placeholder="请选择结束时间" autocomplete="off" class="layui-input">
-      </div>
-      <div id="area-con">
-        <div class="area-list">
-          <div class="set1 flex-box">
-            <label class="set-name1">归 属 地：</label>
-            <form class="form-inline">
-              <div id="distpicker">
-                <div class="form-group">
-                  <div style="position: relative;">
-                    <input id="city-picker3" class="city-picker" readonly type="text" value="请选择地点" data-toggle="city-picker">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <button class="btn btn-warning resets" id="reset" type="button" onclick="addArea(this)">新增</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="anter" type="button">搜 索</div>
+
   </div>
 </div>
 <script type="text/html" id="areas">
@@ -87,17 +51,7 @@
   </div>
 </script>
 <script type="text/html" id="show-areaData">
-  <table id="tab" class="layui-table" lay-data="{height: 'full-335', url:'json/table1.json'}">
-    <thead>
-    <tr>
-      <th lay-data="{field:'id', width:120, sort: true}">IMSI</th>
-      <th lay-data="{field:'username', width:89,sort: true}">手机号</th>
-      <th lay-data="{field:'sex', width:59, sort: true}">归属地</th>
-      <th lay-data="{field:'city', width:80,sort: true}">时间</th>
-      <th lay-data="{field:'sign', width:59,sort: true}">运营商</th>
-    </tr>
-    </thead>
-  </table>
+
 </script>
 <script type="text/html" id="nav">
   <div class="flex-box list-cont">
@@ -125,7 +79,7 @@
   </div>
 </script>
 <script type="text/html" id="contain">
-  <div id="main" style="font-size: 12px" >
+  <div id="main" style="font-size: 12px" lay-filter='test1'>
     <div class="set flex-box">
       <div class="set-name">数据类型：</div>
       <ul class="set-com">
@@ -162,8 +116,61 @@
       </div>
     </div>
   </div>
+  <div id="tab" class="hide">
+      <table id="tab1" class="layui-table hide" lay-data="{height: 'full-335', url:'json/table1.json'}">
+          <thead>
+          <tr>
+              <th lay-data="{field:'id', width:120, sort: true}">IMSI</th>
+              <th lay-data="{field:'username', width:89,sort: true}">手机号</th>
+              <th lay-data="{field:'sex', width:59, sort: true}">归属地</th>
+              <th lay-data="{field:'city', width:80,sort: true}">时间</th>
+              <th lay-data="{field:'sign', width:59,sort: true}">运营商</th>
+          </tr>
+          </thead>
+      </table>
+  </div>
   <div id="anter" type="button">搜 索</div>
 </script>
+<!--<script type="text/html" id="contain2">-->
+    <!--<div id="main" style="font-size: 12px" >-->
+        <!--<div class="set flex-box">-->
+            <!--<div class="set-name">数据类型：</div>-->
+            <!--<ul class="set-com">-->
+                <!--<li><input type="radio" name="radio" data-labelauty="IMSI"></li>-->
+                <!--<li><input type="radio" name="radio" data-labelauty="车牌"></li>-->
+                <!--<li><input type="radio" name="radio" data-labelauty="MAC"></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <!--<div class="set flex-box">-->
+            <!--<label class="set-name1">开始时间：</label>-->
+            <!--<input type="text" name="date" class="date" id="date" lay-verify="date" placeholder="请选择开始时间" autocomplete="off" class="layui-input">-->
+        <!--</div>-->
+        <!--<div class="set1 flex-box">-->
+            <!--<label class="set-name1">结束时间：</label>-->
+            <!--<input type="text" name="date" class="date" id="date1" lay-verify="date" placeholder="请选择结束时间" autocomplete="off" class="layui-input">-->
+        <!--</div>-->
+        <!--<div id="area-con">-->
+            <!--<div class="area-list">-->
+                <!--<div class="set1 flex-box">-->
+                    <!--<label class="set-name1">跟踪目标：</label>-->
+                    <!--<form class="form-inline">-->
+                        <!--<div id="distpicker">-->
+                            <!--<div class="form-group">-->
+                                <!--<div style="position: relative;">-->
+                                    <!--<input id="city-picker3" class="city-picker" readonly type="text" value="请选择地点" data-toggle="city-picker">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="form-group">-->
+                                <!--<button class="btn btn-warning resets" id="reset" type="button" onclick="addArea(this)">新增</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div id="anter" type="button">搜 索</div>-->
+<!--</script>-->
 <script src="js/jquery.js"></script>
 <script src="js/jquery-labelauty.js"></script>
 <script src="js/layer.js"></script>
@@ -171,61 +178,5 @@
 <script src="js/city-picker.data.js"></script>
 <script src="js/city-picker.js"></script>
 <script src="js/map.js"></script>
-<script>
-  $(function(){
-    $(':input').labelauty();
-  });
-  layui.use(['form', 'layedit', 'laydate', 'table'], function(){
-    var form = layui.form
-      ,layer = layui.layer
-      ,layedit = layui.layedit
-      ,laydate = layui.laydate;
-    //日期
-    laydate.render({
-      elem: '#date'
-    });
-    laydate.render({
-      elem: '#date1'
-    });
-  });
-  $('.list').delegate('.list-title>span', 'click',function () {
-      var thisId = $(this).attr('id')
-      $(this).parent().addClass('act').siblings().removeClass('act');
-      switch (thisId) {
-          case 'areaData':
-              break
-          case 'targetTracing':
-              $('#main').html('')
-              layui.use('table', function(){
-                  var table = layui.table;
-                  table.render({
-                      elem: '#main'
-                      ,url:'json/targetTarcing.json'
-                      ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-                      ,cols: [[
-                          {field:'imsi', width:120, title: 'IMSI'}
-                          ,{field:'imei', width:89, title: 'IMEI'}
-                          ,{field:'phone', width:80, title: '电话'}
-                          ,{field:'address', width:150, title: '地址'}
-                          ,{field:'imsiaddress', title: 'IMSI地址', width: '100'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                          ,{field:'capturetime', title: '捕获时间', sort: true,width: '100'}
-                          ,{field:'sign', title: '运营商'}
-                      ]]
-                  });
-              })
-              break
-          case 'collisionStatic':
-              break
-          case 'groupCollision':
-              break
-          case 'togetherAnalysis':
-              break
-          case 'fomulaCalculate':
-              break
-          case 'targetStatic':
-              break
-      }
-  })
-</script>
 </body>
 </html>
