@@ -204,6 +204,9 @@ $('.ipt-btn').click(function (e) {
         var cols = '',url = '';
         switch (thisCheckId) {
             case 'areaData':
+                $('#operate').css({
+                    width:'394px'
+                })
                 cols = [[
                     {field:'id', width:120, sort: true, title: 'IMSI'}
                     ,{field:'username', width:120, title: '手机号', event: 'showCrvue'}
@@ -215,6 +218,9 @@ $('.ipt-btn').click(function (e) {
                 createTab(cols,url)
                 break
             case 'targetTracing':
+                $('#operate').css({
+                    width:'480px'
+                })
                 cols = [[
                     {field:'imsi', width:120, title: 'IMSI', event: 'showCrvue'}
                     ,{field:'imei', width:120, title: 'IMEI', event: 'showCrvue'}
