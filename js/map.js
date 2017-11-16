@@ -36,6 +36,7 @@ $('.list').delegate('.list-title>span', 'click',function () {
             createTab(cols,url)
             break
         case 'collisionStatic':
+            createCircle()
             break
         case 'groupCollision':
             break
@@ -229,4 +230,49 @@ $(".ipt-cle").click(function (e) {
 function remove_overlay(){
     map.clearOverlays();
 }
+
+
 //配置中心
+// 添加一个初始化的原型区域
+function createCircle() {
+  map.enableScrollWheelZoom();
+  var overlays = [];
+	var overlaycomplete = function(e){
+    // 绘制完成后
+    if (overlays.length !== 0) {
+      clearAll();
+    }
+    overlays.push(e.overlay);
+    console.log('complete');
+  };
+  var styleOptions = {
+      strokeColor:"#A6CBA1",    //边线颜色。
+      fillColor:"#A6CBA1",      //填充颜色。当参数为空时，圆形将没有填充效果。
+      strokeWeight: 3,       //边线的宽度，以像素为单位。
+      strokeOpacity: 0.8,	   //边线透明度，取值范围0 - 1。
+      fillOpacity: 0.6,      //填充的透明度，取值范围0 - 1。
+      strokeStyle: 'solid' //边线的样式，solid或dashed。
+  }
+  //实例化鼠标绘制工具
+  var drawingManager = new BMapLib.DrawingManager(map, {
+      isOpen: true, //是否开启绘制模式
+      enableDrawingTool: false, //是否显示工具栏
+      drawingToolOptions: {
+        anchor: BMAP_ANCHOR_TOP_RIGHT, //位置
+        offset: new BMap.Size(5, 5), //偏离值
+      },
+      circleOptions: styleOptions, //圆的样式
+      polylineOptions: styleOptions, //线的样式
+      polygonOptions: styleOptions, //多边形的样式
+      rectangleOptions: styleOptions //矩形的样式
+  });
+  drawingManager.addEventListener('overlaycomplete', overlaycomplete);
+  function clearAll() {
+    for(var i = 0; i < overlays.length; i++){
+      map.removeOverlay(overlays[i]);
+    }
+    overlays.length = 0
+    overlays = []
+  }
+  drawingManager.setDrawingMode(BMAP_DRAWING_CIRCLE);
+}
