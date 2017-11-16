@@ -4,6 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
   <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=UILq5M39YnNavETRRI7Zp0uYWZ4b3ToC"></script>
+  <script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
   <!--加载检索信息窗口-->
   <script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
   <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css" />
@@ -29,6 +30,9 @@
 
   </div>
 </div>
+<div id="operate">
+
+</div>
 <script type="text/html" id="areas">
   <div class="area-list">
     <div class="set1 flex-box">
@@ -47,9 +51,6 @@
       </form>
     </div>
   </div>
-</script>
-<script type="text/html" id="show-areaData">
-
 </script>
 <script type="text/html" id="nav">
   <div class="flex-box list-cont">
@@ -77,7 +78,7 @@
   </div>
 </script>
 <script type="text/html" id="contain">
-  <div id="main" style="font-size: 12px" >
+  <div id="main" style="font-size: 12px" lay-filter='test1'>
     <div class="set flex-box">
       <div class="set-name">数据类型：</div>
       <ul class="set-com">
@@ -137,43 +138,9 @@
 <script src="js/city-picker.data.js"></script>
 <script src="js/city-picker.js"></script>
 <script src="js/map.js"></script>
-<script>
-  $(function(){
-    $(':input').labelauty();
-  });
-  layui.use(['form', 'layedit', 'laydate', 'table'], function(){
-    var form = layui.form
-      ,layer = layui.layer
-      ,layedit = layui.layedit
-      ,laydate = layui.laydate;
-    //日期
-    laydate.render({
-      elem: '#date'
-    });
-    laydate.render({
-      elem: '#date1'
-    });
-  });
-  $('.list').delegate('.list-title>span', 'click',function () {
-      var thisId = $(this).attr('id')
-      $(this).parent().addClass('act').siblings().removeClass('act');
-      switch (thisId) {
-          case 'areaData':
-              break
-          case 'targetTracing':
-              break
-          case 'collisionStatic':
-              break
-          case 'groupCollision':
-              break
-          case 'togetherAnalysis':
-              break
-          case 'fomulaCalculate':
-              break
-          case 'targetStatic':
-              break
-      }
-  })
-</script>
+
+
+
+
 </body>
 </html>

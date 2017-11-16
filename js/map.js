@@ -1,3 +1,101 @@
+
+$(function(){
+  $(':input').labelauty();
+});
+layui.use(['form', 'layedit', 'laydate', 'table'], function(){
+  var form = layui.form
+    ,layer = layui.layer
+    ,layedit = layui.layedit
+    ,laydate = layui.laydate;
+  //日期
+  laydate.render({
+    elem: '#date'
+  });
+  laydate.render({
+    elem: '#date1'
+  });
+});
+$('.list').delegate('.list-title>span', 'click',function () {
+    var thisId = $(this).attr('id')
+    $(this).parent().addClass('act').siblings().removeClass('act');
+    var cols = '',url = '';
+    switch (thisId) {
+        case 'areaData':
+            break
+        case 'targetTracing':
+            $('#main').html('')
+            cols = [[
+                {field:'imsi', width:120, title: 'IMSI', event: 'showCrvue'}
+                ,{field:'imei', width:120, title: 'IMEI', event: 'showCrvue'}
+                ,{field:'phone', width:100, title: '电话', event: 'showCrvue'}
+                ,{field:'address', width:150, title: '地址', event: 'showCrvue'}
+                ,{field:'imsiaddress', title: 'IMSI地址', width: '100', event: 'showCrvue'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                ,{field:'capturetime', title: '捕获时间', sort: true,width: '100', event: 'showCrvue'}
+                ,{field:'sign', title: '运营商', event: 'showCrvue'}
+            ]];
+            url = 'json/targetTarcing.json'
+            createTab(cols,url)
+            break
+        case 'collisionStatic':
+            break
+        case 'groupCollision':
+            break
+        case 'togetherAnalysis':
+            break
+        case 'fomulaCalculate':
+            break
+        case 'targetStatic':
+            break
+    }
+})
+function createTab(cols,url){
+    layui.use('table', function(){
+        var table = layui.table;
+        table.on('tool(test1)', function(obj){
+            // 添加曲线轨迹
+            map.clearOverlays();
+            createCruvue()
+        })
+        table.render({
+            elem: '#main'
+            ,url:url
+            ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            ,cols:cols
+        });
+    })
+}
+// 随机生成曲线轨迹
+function createCruvue() {
+  var bounds = map.getBounds();
+  var sw = bounds.getSouthWest();
+  var ne = bounds.getNorthEast();
+  var lngSpan = Math.abs(sw.lng - ne.lng);
+  var latSpan = Math.abs(ne.lat - sw.lat);
+
+  // map.centerAndZoom(new BMap.Point(106.574737, 29.581328), 16);
+  var pointsArr = []
+  for (var i = 0; i < 8; i ++) {
+    var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+    var marker = new BMap.Marker(point);
+    var label = new BMap.Label(i+1,{offset:new BMap.Size(5, 0)})
+    label.setStyle({
+       border: 'none',
+       background: 'none',
+       color : "#fff",
+			 fontSize : "12px",
+			 height : "20px",
+			 lineHeight : "20px",
+			 fontFamily:"微软雅黑"
+     });
+    map.addOverlay(marker);
+    marker.setLabel(label)
+    pointsArr.push(point);
+  }
+  var curve = new BMapLib.CurveLine(pointsArr, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5}); //创建弧线对象
+  map.addOverlay(curve); //添加到地图中
+  // curve.enableEditing(); //开启编辑功能
+}
+
 // 百度地图API功能
 var map = new BMap.Map('map');
 var poi = new BMap.Point(106.574737,29.581328);
@@ -100,16 +198,14 @@ $('.ipt-btn').click(function (e) {
             });
             table.render({
                 elem: '#tab1'
-                ,url:'json/targetTarcing.json'
+                ,url:'json/table1.json'
                 ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
                 ,cols: [[
-                    {field:'imsi', width:120, title: 'IMSI'}
-                    ,{field:'imei', width:89, title: 'IMEI'}
-                    ,{field:'phone', width:80, title: '电话'}
-                    ,{field:'address', width:150, title: '地址'}
-                    ,{field:'imsiaddress', title: 'IMSI地址', width: '100'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                    ,{field:'capturetime', title: '捕获时间', sort: true,width: '100'}
-                    ,{field:'sign', title: '运营商'}
+                    {field:'id', width:120, title: 'IMSI'}
+                    ,{field:'username', width:89, title: '电话'}
+                    ,{field:'sex', width:80, title: '归属地'}
+                    ,{field:'city', width:150, title: '时间'}
+                    ,{field:'sign', title: '运营商', width: '100'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
                 ]]
             });
         });
