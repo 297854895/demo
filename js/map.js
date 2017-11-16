@@ -29,6 +29,7 @@ $('.list').delegate('.list-title>span', 'click',function () {
     var thisId = $(this).attr('id')
     $(this).parent().addClass('act').siblings().removeClass('act');
     var cols = '',url = '';
+    $('#operate').addClass('hide')
     switch (thisId) {
         case 'areaData':
             $("#anter").removeClass('hide')
@@ -268,8 +269,9 @@ function createTab(cols,url){
             $('#operate').toggleClass('hide');
             var thisHtml = ''
             for(var key in obj.data) {
+                var str = obj.data[key].length < 5 ? obj.data[key] : obj.data[key].substring(0,5) + '....'
                 thisHtml+= `
-                    <span>${obj.data[key]}</span>    
+                    <span>${str}</span>    
                 `
             }
             var html = `
