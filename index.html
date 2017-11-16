@@ -16,6 +16,58 @@
   <link rel="stylesheet" href="css/modules/laydate/default/laydate.css">
   <link href="css/city-picker.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="css/bootstrap.css">
+  <style>
+    #operate{
+      position: fixed;
+      width:394px;
+      z-index: 9999;
+      left:16px;
+      top:300px;
+      background:orange;
+      color:dodgerblue;
+      border-radius:5px;
+      padding:10px;
+      overflow-x: scroll;
+    }
+    #operate div:first-child{
+      min-width:400px;
+      height:30px;
+    }
+    #operate div:first-child span{
+      height:30px;
+      margin:0 5px;
+      line-height: 30px;
+    }
+    #operate div:last-child {
+      position: relative;
+    }
+    #operate div:last-child a{
+      position: absolute;
+      right:0;
+      bottom:0;
+      width:32px;
+      height:32px;
+      background: blue;
+      background:url(images/153.png) no-repeat 0 0;
+    }
+    #operate div:last-child p{
+      padding:0;
+      margin:0;
+      line-height:16px;
+      font-size: 12px;
+    }
+    #operate div:last-child p span{
+      margin:0 2px;
+      cursor: pointer;
+    }
+    #shit{
+      position: fixed;
+      z-index: 9999;
+      background: #000;
+      opacity: 0.2;
+      margin-top:200px;
+    }
+  </style>
 </head>
 
 <body>
@@ -31,7 +83,6 @@
   </div>
 </div>
 <div id="operate">
-
 </div>
 <script type="text/html" id="areas">
   <div class="area-list">
@@ -78,7 +129,7 @@
   </div>
 </script>
 <script type="text/html" id="contain">
-  <div id="main" style="font-size: 12px" lay-filter='test1'>
+  <div id="main" style="font-size: 12px">
     <div class="set flex-box">
       <div class="set-name">数据类型：</div>
       <ul class="set-com">
@@ -115,7 +166,7 @@
       </div>
     </div>
   </div>
-  <div id="tab" class="hide">
+  <div id="tab" class="hide"  lay-filter='test1'>
 
   </div>
   <div id="anter" type="button">搜 索</div>
@@ -127,9 +178,6 @@
 <script src="js/city-picker.data.js"></script>
 <script src="js/city-picker.js"></script>
 <script src="js/map.js"></script>
-
-
-
 
 </body>
 </html>
