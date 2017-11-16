@@ -1,3 +1,36 @@
+$('body').append($('<button style="position: fixed; top: 0" type="button" lng="106.574737" lat="29.581328" onclick="testMapPoint(this)">test</button>'))
+function testMapPoint(dom) {
+  // map.clearOverlays();
+  var lng = Number($(dom).attr('lng'));
+  var lat = Number($(dom).attr('lat'));
+  var bounds = map.getBounds();
+  var sw = bounds.getSouthWest();
+  var ne = bounds.getNorthEast();
+  var lngSpan = Math.abs(sw.lng - ne.lng);
+  var latSpan = Math.abs(ne.lat - sw.lat);
+
+  map.centerAndZoom(new BMap.Point(lng, lat), 16);
+  var pointsArr = []
+  for (var i = 0; i < 8; i ++) {
+    var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+    var label = new BMap.Label(i + 1, {
+      position: point,
+      offset: new BMap.Size(-4, -10)
+    });
+    label.setStyle({
+       border: 'none',
+       background: 'none',
+			 color : "#fff",
+			 fontSize : "12px",
+			 fontFamily:"微软雅黑"
+		 });
+    map.addOverlay(label);
+    pointsArr.push(point);
+  }
+  var curve = new BMapLib.CurveLine(pointsArr, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5}); //创建弧线对象
+  map.addOverlay(curve); //添加到地图中
+  curve.enableEditing(); //开启编辑功能
+}
 // 百度地图API功能
 var map = new BMap.Map('map');
 var poi = new BMap.Point(106.574737,29.581328);
