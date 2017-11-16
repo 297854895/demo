@@ -98,12 +98,26 @@ $('.ipt-btn').click(function (e) {
             laydate.render({
                 elem: '#date1'
             });
+            table.render({
+                elem: '#tab1'
+                ,url:'json/targetTarcing.json'
+                ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                ,cols: [[
+                    {field:'imsi', width:120, title: 'IMSI'}
+                    ,{field:'imei', width:89, title: 'IMEI'}
+                    ,{field:'phone', width:80, title: '电话'}
+                    ,{field:'address', width:150, title: '地址'}
+                    ,{field:'imsiaddress', title: 'IMSI地址', width: '100'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                    ,{field:'capturetime', title: '捕获时间', sort: true,width: '100'}
+                    ,{field:'sign', title: '运营商'}
+                ]]
+            });
         });
     });
     $('#anter').click(function (e) {
-        $("#main").html($("#show-list").html())
-        $("#anter").remove()
-
+        $("#anter").addClass('hide')
+        $("#main").addClass('hide')
+        $("#tab").removeClass('hide')
     })
 })
 //查询
@@ -112,35 +126,9 @@ $('.ipt-btn').click(function (e) {
 
 //返回
 $(".ipt-cle").click(function (e) {
-    $.getScript("js/jquery-labelauty.js");
-    $.getScript("js/city-picker.data.js");
-    $.getScript("js/city-picker.js");
-    $(".list").empty()
-    $(".list").removeClass("hide")
-    $(".list").append($("#nav").html())
-    $(".list").append($("#contain").html())
-    $(function(){
-        $(':input').labelauty();
-    });
-    $('#anter').click(function (e) {
-        $("#main").html($("#show-list").html())
-        $("#anter").remove()
-        layui.use(['form', 'layedit', 'laydate', 'table'], function(){
-            var form = layui.form
-                ,layer = layui.layer
-                ,layedit = layui.layedit
-                ,table = layui.table
-                ,laydate = layui.laydate;
-            //日期
-            laydate.render({
-                elem: '#date'
-            });
-            laydate.render({
-                elem: '#date1'
-            });
-        });
-    })
-
+    $("#anter").removeClass('hide')
+    $("#main").removeClass('hide')
+    $("#tab").addClass('hide')
 })
 
 //清除覆盖物
