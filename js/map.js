@@ -17,33 +17,23 @@ layui.use(['form', 'layedit', 'laydate', 'table'], function(){
 $('.list').delegate('.list-title>span', 'click',function () {
     var thisId = $(this).attr('id')
     $(this).parent().addClass('act').siblings().removeClass('act');
+    var cols = '',url = '';
     switch (thisId) {
         case 'areaData':
             break
         case 'targetTracing':
             $('#main').html('')
-            layui.use('table', function(){
-                var table = layui.table;
-                table.on('tool(test1)', function(obj){
-                  // 添加曲线轨迹
-                  map.clearOverlays();
-                  createCruvue()
-                })
-                table.render({
-                    elem: '#main'
-                    ,url:'json/targetTarcing.json'
-                    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-                    ,cols: [[
-                        {field:'imsi', width:120, title: 'IMSI', event: 'showCrvue'}
-                        ,{field:'imei', width:120, title: 'IMEI', event: 'showCrvue'}
-                        ,{field:'phone', width:100, title: '电话', event: 'showCrvue'}
-                        ,{field:'address', width:150, title: '地址', event: 'showCrvue'}
-                        ,{field:'imsiaddress', title: 'IMSI地址', width: '100', event: 'showCrvue'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                        ,{field:'capturetime', title: '捕获时间', sort: true,width: '100', event: 'showCrvue'}
-                        ,{field:'sign', title: '运营商', event: 'showCrvue'}
-                    ]]
-                });
-            })
+            cols = [[
+                {field:'imsi', width:120, title: 'IMSI', event: 'showCrvue'}
+                ,{field:'imei', width:120, title: 'IMEI', event: 'showCrvue'}
+                ,{field:'phone', width:100, title: '电话', event: 'showCrvue'}
+                ,{field:'address', width:150, title: '地址', event: 'showCrvue'}
+                ,{field:'imsiaddress', title: 'IMSI地址', width: '100', event: 'showCrvue'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                ,{field:'capturetime', title: '捕获时间', sort: true,width: '100', event: 'showCrvue'}
+                ,{field:'sign', title: '运营商', event: 'showCrvue'}
+            ]];
+            url = 'json/targetTarcing.json'
+            createTab(cols,url)
             break
         case 'collisionStatic':
             break
@@ -57,6 +47,22 @@ $('.list').delegate('.list-title>span', 'click',function () {
             break
     }
 })
+function createTab(cols,url){
+    layui.use('table', function(){
+        var table = layui.table;
+        table.on('tool(test1)', function(obj){
+            // 添加曲线轨迹
+            map.clearOverlays();
+            createCruvue()
+        })
+        table.render({
+            elem: '#main'
+            ,url:url
+            ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            ,cols:cols
+        });
+    })
+}
 // 随机生成曲线轨迹
 function createCruvue() {
   var bounds = map.getBounds();
