@@ -24,17 +24,6 @@ $('.list').delegate('.list-title>span', 'click',function () {
             break
         case 'targetTracing':
             $('#main').html('')
-            cols = [[
-                {field:'imsi', width:120, title: 'IMSI', event: 'showCrvue'}
-                ,{field:'imei', width:120, title: 'IMEI', event: 'showCrvue'}
-                ,{field:'phone', width:100, title: '电话', event: 'showCrvue'}
-                ,{field:'address', width:150, title: '地址', event: 'showCrvue'}
-                ,{field:'imsiaddress', title: 'IMSI地址', width: '100', event: 'showCrvue'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                ,{field:'capturetime', title: '捕获时间', sort: true,width: '100', event: 'showCrvue'}
-                ,{field:'sign', title: '运营商', event: 'showCrvue'}
-            ]];
-            url = 'json/targetTarcing.json'
-            createTab(cols,url)
             break
         case 'collisionStatic':
             break
@@ -49,6 +38,7 @@ $('.list').delegate('.list-title>span', 'click',function () {
     }
 })
 function createTab(cols,url){
+    $('.layui-form').remove();
     layui.use('table', function(){
         var table = layui.table;
         table.on('tool(test1)', function(obj){
@@ -57,7 +47,7 @@ function createTab(cols,url){
             createCruvue()
         })
         table.render({
-            elem: '#main'
+            elem: '#tab'
             ,url:url
             ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             ,cols:cols
@@ -211,6 +201,44 @@ $('.ipt-btn').click(function (e) {
         });
     });
     $('#anter').click(function (e) {
+        var thisCheckId = $('.act').children('span').attr('id')
+        var cols = '',url = '';
+        switch (thisCheckId) {
+            case 'areaData':
+                cols = [[
+                    {field:'id', width:120, sort: true, title: 'IMSI'}
+                    ,{field:'username', width:120, title: '手机号', event: 'showCrvue'}
+                    ,{field:'sex', width:100, title: '归属地', event: 'showCrvue'}
+                    ,{field:'city', width:150, title: '时间', event: 'showCrvue'}
+                    ,{field:'sign', title: '运营商', width: '100', event: 'showCrvue'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                ]];
+                url = 'json/table1.json'
+                createTab(cols,url)
+                break
+            case 'targetTracing':
+                cols = [[
+                    {field:'imsi', width:120, title: 'IMSI', event: 'showCrvue'}
+                    ,{field:'imei', width:120, title: 'IMEI', event: 'showCrvue'}
+                    ,{field:'phone', width:100, title: '电话', event: 'showCrvue'}
+                    ,{field:'address', width:150, title: '地址', event: 'showCrvue'}
+                    ,{field:'imsiaddress', title: 'IMSI地址', width: '100', event: 'showCrvue'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                    ,{field:'capturetime', title: '捕获时间', sort: true,width: '100', event: 'showCrvue'}
+                    ,{field:'sign', title: '运营商', event: 'showCrvue'}
+                ]];
+                url = 'json/targetTarcing.json'
+                createTab(cols,url)
+                break
+            case 'collisionStatic':
+                break
+            case 'groupCollision':
+                break
+            case 'togetherAnalysis':
+                break
+            case 'fomulaCalculate':
+                break
+            case 'targetStatic':
+                break
+        }
         $("#anter").addClass('hide')
         $("#main").addClass('hide')
         $("#tab").removeClass('hide')
