@@ -1,4 +1,3 @@
-
 $(function(){
   $(':input').labelauty();
 });
@@ -16,6 +15,17 @@ layui.use(['form', 'layedit', 'laydate', 'table'], function(){
   });
 });
 $('.list').delegate('.list-title>span', 'click',function () {
+    // 关闭绘制工具，清除画圈
+    if (drawingManager) {
+      drawingManager.close()
+    }
+    if (overlays.length && overlays.length > 0) {
+      for(var i = 0; i < overlays.length; i++){
+        map.removeOverlay(overlays[i]);
+      }
+      overlays.length = 0
+      overlays = []
+    }
     var thisId = $(this).attr('id')
     $(this).parent().addClass('act').siblings().removeClass('act');
     var cols = '',url = '';
@@ -26,6 +36,7 @@ $('.list').delegate('.list-title>span', 'click',function () {
             $('#main').html('')
             break
         case 'collisionStatic':
+            createCircle()
             break
         case 'groupCollision':
             break
@@ -68,7 +79,6 @@ function createCruvue() {
   map.addOverlay(curve); //添加到地图中
   // curve.enableEditing(); //开启编辑功能
 }
-
 // 百度地图API功能
 var map = new BMap.Map('map');
 var poi = new BMap.Point(106.574737,29.581328);
@@ -274,7 +284,58 @@ $(".ipt-cle").click(function (e) {
 function remove_overlay(){
     map.clearOverlays();
 }
+
+
 //配置中心
 $("#operate").delegate('#operateBtn span','click',function () {
     var content = $(this).html()
 })
+
+// 添加一个初始化的原型区域
+var drawingManager;
+var overlays = [];
+function createCircle() {
+  map.enableScrollWheelZoom();
+  //实例化鼠标绘制工具
+  if (!drawingManager) {
+    var overlaycomplete = function(e){
+      // 绘制完成后
+      if (overlays.length !== 0) {
+        clearAll();
+      }
+      overlays.push(e.overlay);
+      console.log('complete');
+    };
+    var styleOptions = {
+      strokeColor:"#A6CBA1",    //边线颜色。
+      fillColor:"#A6CBA1",      //填充颜色。当参数为空时，圆形将没有填充效果。
+      strokeWeight: 3,       //边线的宽度，以像素为单位。
+      strokeOpacity: 0.8,	   //边线透明度，取值范围0 - 1。
+      fillOpacity: 0.6,      //填充的透明度，取值范围0 - 1。
+      strokeStyle: 'solid' //边线的样式，solid或dashed。
+    }
+    drawingManager = new BMapLib.DrawingManager(map, {
+      isOpen: true, //是否开启绘制模式
+      enableDrawingTool: false, //是否显示工具栏
+      drawingToolOptions: {
+        anchor: BMAP_ANCHOR_TOP_RIGHT, //位置
+        offset: new BMap.Size(5, 5), //偏离值
+      },
+      circleOptions: styleOptions, //圆的样式
+      polylineOptions: styleOptions, //线的样式
+      polygonOptions: styleOptions, //多边形的样式
+      rectangleOptions: styleOptions //矩形的样式
+    });
+    drawingManager.addEventListener('overlaycomplete', overlaycomplete);
+    function clearAll() {
+      for(var i = 0; i < overlays.length; i++){
+        map.removeOverlay(overlays[i]);
+      }
+      overlays.length = 0
+      overlays = []
+    }
+  } else {
+    drawingManager.open();
+  }
+  drawingManager.setDrawingMode(BMAP_DRAWING_CIRCLE);
+}
