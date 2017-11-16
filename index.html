@@ -27,7 +27,44 @@
     <div class="ipt-btn"></div>
   </div>
   <div class="list hide">
-
+    <div id="main" style="font-size: 12px" >
+      <div class="set flex-box">
+        <div class="set-name">数据类型：</div>
+        <ul class="set-com">
+          <li><input type="radio" name="radio" data-labelauty="IMSI"></li>
+          <li><input type="radio" name="radio" data-labelauty="车牌"></li>
+          <li><input type="radio" name="radio" data-labelauty="MAC"></li>
+        </ul>
+      </div>
+      <div class="set flex-box">
+        <label class="set-name1">开始时间：</label>
+        <input type="text" name="date" class="date" id="date" lay-verify="date" placeholder="请选择开始时间" autocomplete="off" class="layui-input">
+      </div>
+      <div class="set1 flex-box">
+        <label class="set-name1">结束时间：</label>
+        <input type="text" name="date" class="date" id="date1" lay-verify="date" placeholder="请选择结束时间" autocomplete="off" class="layui-input">
+      </div>
+      <div id="area-con">
+        <div class="area-list">
+          <div class="set1 flex-box">
+            <label class="set-name1">归 属 地：</label>
+            <form class="form-inline">
+              <div id="distpicker">
+                <div class="form-group">
+                  <div style="position: relative;">
+                    <input id="city-picker3" class="city-picker" readonly type="text" value="请选择地点" data-toggle="city-picker">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-warning resets" id="reset" type="button" onclick="addArea(this)">新增</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="anter" type="button">搜 索</div>
   </div>
 </div>
 <script type="text/html" id="areas">
@@ -35,14 +72,14 @@
     <div class="set1 flex-box">
       <label class="set-name1">归 属 地：</label>
       <form class="form-inline">
-        <div id="distpicker">
+        <div id="distpicker1">
           <div class="form-group">
             <div style="position: relative;">
-              <input id="city-picker3" class="city-picker" readonly type="text" value="请选择地点" data-toggle="city-picker">
+              <input id="city-picker31" class="city-picker" readonly type="text" value="请选择地点" data-toggle="city-picker">
             </div>
           </div>
           <div class="form-group">
-            <button class="btn btn-warning resets" id="reset" type="button" onclick="addArea(this)">新增</button>
+            <button class="btn btn-warning resets" id="reset1" type="button" onclick="addArea(this)">新增</button>
           </div>
         </div>
       </form>
@@ -123,24 +160,6 @@
           </form>
         </div>
       </div>
-
-      <div class="area-list">
-        <div class="set1 flex-box">
-          <label class="set-name1">归 属 地：</label>
-          <form class="form-inline">
-            <div id="distpicker">
-              <div class="form-group">
-                <div style="position: relative;">
-                  <input id="city-picker3" class="city-picker" readonly type="text" value="请选择地点" data-toggle="city-picker">
-                </div>
-              </div>
-              <div class="form-group">
-                <button class="btn btn-warning resets" id="reset" type="button" onclick="addArea(this)">新增</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
     </div>
   </div>
   <div id="anter" type="button">搜 索</div>
@@ -156,7 +175,7 @@
   $(function(){
     $(':input').labelauty();
   });
-  layui.use(['form', 'layedit', 'laydate'], function(){
+  layui.use(['form', 'layedit', 'laydate', 'table'], function(){
     var form = layui.form
       ,layer = layui.layer
       ,layedit = layui.layedit
@@ -208,6 +227,5 @@
       }
   })
 </script>
-
 </body>
 </html>
