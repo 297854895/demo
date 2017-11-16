@@ -76,29 +76,33 @@ var addArea = function (e) {
 
 //搜索
 $('.ipt-btn').click(function (e) {
-    $(".list").empty()
-    $(".list").removeClass("hide")
-    $(".list").append($("#nav").html())
-    $(".list").append($("#contain").html())
-    $(function(){
-        $(':input').labelauty();
-        $.getScript("js/jquery-labelauty.js");
-        $.getScript("js/city-picker.data.js");
-        $.getScript("js/city-picker.js");
         layui.use(['form', 'layedit', 'laydate', 'table'], function(){
-            var form = layui.form
-                ,layer = layui.layer
-                ,layedit = layui.layedit
-                ,table = layui.table
-                ,laydate = layui.laydate;
-            //日期
-            laydate.render({
-                elem: '#date'
-            });
-            laydate.render({
-                elem: '#date1'
-            });
-        });
+  $.getScript("js/jquery-labelauty.js");
+  $.getScript("js/city-picker.data.js");
+  $.getScript("js/city-picker.js");
+  $(".list").empty()
+  $(".list").removeClass("hide")
+  $(".list").append($("#nav").html())
+  $(".list").append($("#contain").html())
+  $(function(){
+    $(':input').labelauty();
+  });
+  $('#anter').click(function (e) {
+    $("#main").html($("#show-areaData").html())
+    $("#anter").remove()
+    layui.use(['form', 'layedit', 'laydate', 'table'], function(){
+      var form = layui.form
+        ,layer = layui.layer
+        ,layedit = layui.layedit
+        ,table = layui.table
+        ,laydate = layui.laydate;
+      //日期
+      laydate.render({
+        elem: '#date'
+      });
+      laydate.render({
+        elem: '#date1'
+      });
     });
     $('#anter').click(function (e) {
         $("#main").html($("#show-list").html())

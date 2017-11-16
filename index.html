@@ -85,7 +85,7 @@
     </div>
   </div>
 </script>
-<script type="text/html" id="show-list">
+<script type="text/html" id="show-areaData">
   <table id="tab" class="layui-table" lay-data="{height: 'full-335', url:'json/table1.json'}">
     <thead>
     <tr>
@@ -101,25 +101,25 @@
 <script type="text/html" id="nav">
   <div class="flex-box list-cont">
     <div class="list-title act">
-      <span><i>区域</i><i>数据</i></span>
+      <span id="areaData"><i>区域</i><i>数据</i></span>
     </div>
     <div class="list-title">
-      <span><i>目标</i><i>跟踪</i></span>
+      <span id="targetTracing"><i>目标</i><i>跟踪</i></span>
     </div>
     <div class="list-title">
-      <span><i>碰撞</i><i>统计</i></span>
+      <span id="collisionStatic"><i>碰撞</i><i>统计</i></span>
     </div>
     <div class="list-title">
-      <span><i>组合</i><i>碰撞</i></span>
+      <span id="groupCollision"><i>组合</i><i>碰撞</i></span>
     </div>
     <div class="list-title">
-      <span><i>同行</i><i>分析</i></span>
+      <span id="togetherAnalysis"><i>同行</i><i>分析</i></span>
     </div>
     <div class="list-title">
-      <span><i>公式</i><i>计算</i></span>
+      <span id="fomulaCalculate"><i>公式</i><i>计算</i></span>
     </div>
     <div class="list-title">
-      <span><i>目标</i><i>统计</i></span>
+      <span id="targetStatic"><i>目标</i><i>统计</i></span>
     </div>
   </div>
 </script>
@@ -187,6 +187,44 @@
       elem: '#date1'
     });
   });
+  $('.list').delegate('.list-title>span', 'click',function () {
+      var thisId = $(this).attr('id')
+      $(this).parent().addClass('act').siblings().removeClass('act');
+      switch (thisId) {
+          case 'areaData':
+              break
+          case 'targetTracing':
+              $('#main').html('')
+              layui.use('table', function(){
+                  var table = layui.table;
+                  table.render({
+                      elem: '#main'
+                      ,url:'json/targetTarcing.json'
+                      ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                      ,cols: [[
+                          {field:'imsi', width:120, title: 'IMSI'}
+                          ,{field:'imei', width:89, title: 'IMEI'}
+                          ,{field:'phone', width:80, title: '电话'}
+                          ,{field:'address', width:150, title: '地址'}
+                          ,{field:'imsiaddress', title: 'IMSI地址', width: '100'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                          ,{field:'capturetime', title: '捕获时间', sort: true,width: '100'}
+                          ,{field:'sign', title: '运营商'}
+                      ]]
+                  });
+              })
+              break
+          case 'collisionStatic':
+              break
+          case 'groupCollision':
+              break
+          case 'togetherAnalysis':
+              break
+          case 'fomulaCalculate':
+              break
+          case 'targetStatic':
+              break
+      }
+  })
 </script>
 
 </body>
