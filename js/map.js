@@ -100,16 +100,14 @@ $('.ipt-btn').click(function (e) {
             });
             table.render({
                 elem: '#tab1'
-                ,url:'json/targetTarcing.json'
+                ,url:'json/table1.json'
                 ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
                 ,cols: [[
-                    {field:'imsi', width:120, title: 'IMSI'}
-                    ,{field:'imei', width:89, title: 'IMEI'}
-                    ,{field:'phone', width:80, title: '电话'}
-                    ,{field:'address', width:150, title: '地址'}
-                    ,{field:'imsiaddress', title: 'IMSI地址', width: '100'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                    ,{field:'capturetime', title: '捕获时间', sort: true,width: '100'}
-                    ,{field:'sign', title: '运营商'}
+                    {field:'id', width:120, title: 'IMSI'}
+                    ,{field:'username', width:89, title: '电话'}
+                    ,{field:'sex', width:80, title: '归属地'}
+                    ,{field:'city', width:150, title: '时间'}
+                    ,{field:'sign', title: '运营商', width: '100'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
                 ]]
             });
         });

@@ -129,46 +129,46 @@
   </div>
   <div id="anter" type="button">搜 索</div>
 </script>
-<script type="text/html" id="contain2">
-    <div id="main" style="font-size: 12px" >
-        <div class="set flex-box">
-            <div class="set-name">数据类型：</div>
-            <ul class="set-com">
-                <li><input type="radio" name="radio" data-labelauty="IMSI"></li>
-                <li><input type="radio" name="radio" data-labelauty="车牌"></li>
-                <li><input type="radio" name="radio" data-labelauty="MAC"></li>
-            </ul>
-        </div>
-        <div class="set flex-box">
-            <label class="set-name1">开始时间：</label>
-            <input type="text" name="date" class="date" id="date" lay-verify="date" placeholder="请选择开始时间" autocomplete="off" class="layui-input">
-        </div>
-        <div class="set1 flex-box">
-            <label class="set-name1">结束时间：</label>
-            <input type="text" name="date" class="date" id="date1" lay-verify="date" placeholder="请选择结束时间" autocomplete="off" class="layui-input">
-        </div>
-        <div id="area-con">
-            <div class="area-list">
-                <div class="set1 flex-box">
-                    <label class="set-name1">跟踪目标：</label>
-                    <form class="form-inline">
-                        <div id="distpicker">
-                            <div class="form-group">
-                                <div style="position: relative;">
-                                    <input id="city-picker3" class="city-picker" readonly type="text" value="请选择地点" data-toggle="city-picker">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-warning resets" id="reset" type="button" onclick="addArea(this)">新增</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="anter" type="button">搜 索</div>
-</script>
+<!--<script type="text/html" id="contain2">-->
+    <!--<div id="main" style="font-size: 12px" >-->
+        <!--<div class="set flex-box">-->
+            <!--<div class="set-name">数据类型：</div>-->
+            <!--<ul class="set-com">-->
+                <!--<li><input type="radio" name="radio" data-labelauty="IMSI"></li>-->
+                <!--<li><input type="radio" name="radio" data-labelauty="车牌"></li>-->
+                <!--<li><input type="radio" name="radio" data-labelauty="MAC"></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <!--<div class="set flex-box">-->
+            <!--<label class="set-name1">开始时间：</label>-->
+            <!--<input type="text" name="date" class="date" id="date" lay-verify="date" placeholder="请选择开始时间" autocomplete="off" class="layui-input">-->
+        <!--</div>-->
+        <!--<div class="set1 flex-box">-->
+            <!--<label class="set-name1">结束时间：</label>-->
+            <!--<input type="text" name="date" class="date" id="date1" lay-verify="date" placeholder="请选择结束时间" autocomplete="off" class="layui-input">-->
+        <!--</div>-->
+        <!--<div id="area-con">-->
+            <!--<div class="area-list">-->
+                <!--<div class="set1 flex-box">-->
+                    <!--<label class="set-name1">跟踪目标：</label>-->
+                    <!--<form class="form-inline">-->
+                        <!--<div id="distpicker">-->
+                            <!--<div class="form-group">-->
+                                <!--<div style="position: relative;">-->
+                                    <!--<input id="city-picker3" class="city-picker" readonly type="text" value="请选择地点" data-toggle="city-picker">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="form-group">-->
+                                <!--<button class="btn btn-warning resets" id="reset" type="button" onclick="addArea(this)">新增</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div id="anter" type="button">搜 索</div>-->
+<!--</script>-->
 <script src="js/jquery.js"></script>
 <script src="js/jquery-labelauty.js"></script>
 <script src="js/layer.js"></script>
@@ -200,29 +200,24 @@
           case 'areaData':
               break
           case 'targetTracing':
-              $(".list").empty()
-              $(".list").append($("#nav").html())
-              $(".list").append($("#contain2").html())
-              $(function(){
-                  $(':input').labelauty();
-                  $.getScript("js/jquery-labelauty.js");
-                  $.getScript("js/city-picker.data.js");
-                  $.getScript("js/city-picker.js");
-                  layui.use(['form', 'layedit', 'laydate', 'table'], function(){
-                      var form = layui.form
-                          ,layer = layui.layer
-                          ,layedit = layui.layedit
-                          ,table = layui.table
-                          ,laydate = layui.laydate;
-                      //日期
-                      laydate.render({
-                          elem: '#date'
-                      });
-                      laydate.render({
-                          elem: '#date1'
-                      });
+              $('#main').html('')
+              layui.use('table', function(){
+                  var table = layui.table;
+                  table.render({
+                      elem: '#main'
+                      ,url:'json/targetTarcing.json'
+                      ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                      ,cols: [[
+                          {field:'imsi', width:120, title: 'IMSI'}
+                          ,{field:'imei', width:120, title: 'IMEI'}
+                          ,{field:'phone', width:100, title: '电话'}
+                          ,{field:'address', width:150, title: '地址'}
+                          ,{field:'imsiaddress', title: 'IMSI地址', width: '100'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                          ,{field:'capturetime', title: '捕获时间', sort: true,width: '100'}
+                          ,{field:'sign', title: '运营商'}
+                      ]]
                   });
-              });
+              })
               break
           case 'collisionStatic':
               break
