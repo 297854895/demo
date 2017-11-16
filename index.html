@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=UILq5M39YnNavETRRI7Zp0uYWZ4b3ToC"></script>
+  <!--加载检索信息窗口-->
+  <script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
+  <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css" />
+  <title>可视化DEMO演示</title>
+  <link rel="stylesheet" href="css/jquery-labelauty.css">
+  <link rel="stylesheet" href="css/layui.css">
+  <link rel="stylesheet" href="css/layer.css">
+  <link rel="stylesheet" href="css/map.css">
+  <link rel="stylesheet" href="css/modules/laydate/default/laydate.css">
+  <link href="css/city-picker.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+
+<body>
+<div id="allmap" style="overflow:hidden;zoom:1;position:relative;">
+  <div id="map" style="height:100%;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;"></div>
+  <div class="ipt">
+    <input type="text" placeholder="请输入相关信息">
+    <div class="ipt-cle">X</div>
+    <div class="ipt-btn"></div>
+  </div>
+  <div class="list hide">
+
+  </div>
+</div>
+<script type="text/html" id="areas">
+  <div class="area-list">
+    <div class="set1 flex-box">
+      <label class="set-name1">归 属 地：</label>
+      <form class="form-inline">
+        <div id="distpicker1">
+          <div class="form-group">
+            <div style="position: relative;">
+              <input id="city-picker31" class="city-picker" readonly type="text" value="请选择地点" data-toggle="city-picker">
+            </div>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-warning resets" id="reset1" type="button" onclick="addArea(this)">新增</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</script>
+<script type="text/html" id="show-areaData">
+
+</script>
+<script type="text/html" id="nav">
+  <div class="flex-box list-cont">
+    <div class="list-title act">
+      <span id="areaData"><i>区域</i><i>数据</i></span>
+    </div>
+    <div class="list-title">
+      <span id="targetTracing"><i>目标</i><i>跟踪</i></span>
+    </div>
+    <div class="list-title">
+      <span id="collisionStatic"><i>碰撞</i><i>统计</i></span>
+    </div>
+    <div class="list-title">
+      <span id="groupCollision"><i>组合</i><i>碰撞</i></span>
+    </div>
+    <div class="list-title">
+      <span id="togetherAnalysis"><i>同行</i><i>分析</i></span>
+    </div>
+    <div class="list-title">
+      <span id="fomulaCalculate"><i>公式</i><i>计算</i></span>
+    </div>
+    <div class="list-title">
+      <span id="targetStatic"><i>目标</i><i>统计</i></span>
+    </div>
+  </div>
+</script>
+<script type="text/html" id="contain">
+  <div id="main" style="font-size: 12px" >
+    <div class="set flex-box">
+      <div class="set-name">数据类型：</div>
+      <ul class="set-com">
+        <li><input type="radio" name="radio" data-labelauty="IMSI"></li>
+        <li><input type="radio" name="radio" data-labelauty="车牌"></li>
+        <li><input type="radio" name="radio" data-labelauty="MAC"></li>
+      </ul>
+    </div>
+    <div class="set flex-box">
+      <label class="set-name1">开始时间：</label>
+      <input type="text" name="date" class="date" id="date" lay-verify="date" placeholder="请选择开始时间" autocomplete="off" class="layui-input">
+    </div>
+    <div class="set1 flex-box">
+      <label class="set-name1">结束时间：</label>
+      <input type="text" name="date" class="date" id="date1" lay-verify="date" placeholder="请选择结束时间" autocomplete="off" class="layui-input">
+    </div>
+    <div id="area-con">
+      <div class="area-list">
+        <div class="set1 flex-box">
+          <label class="set-name1">归 属 地：</label>
+          <form class="form-inline">
+            <div id="distpicker">
+              <div class="form-group">
+                <div style="position: relative;">
+                  <input id="city-picker3" class="city-picker" readonly type="text" value="请选择地点" data-toggle="city-picker">
+                </div>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-warning resets" id="reset" type="button" onclick="addArea(this)">新增</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="tab" class="hide">
+      <table id="tab1" class="layui-table hide" lay-data="{height: 'full-335', url:'json/table1.json'}">
+          <thead>
+          <tr>
+              <th lay-data="{field:'id', width:120, sort: true}">IMSI</th>
+              <th lay-data="{field:'username', width:89,sort: true}">手机号</th>
+              <th lay-data="{field:'sex', width:59, sort: true}">归属地</th>
+              <th lay-data="{field:'city', width:80,sort: true}">时间</th>
+              <th lay-data="{field:'sign', width:59,sort: true}">运营商</th>
+          </tr>
+          </thead>
+      </table>
+  </div>
+  <div id="anter" type="button">搜 索</div>
+</script>
+<script type="text/html" id="contain2">
+    <div id="main" style="font-size: 12px" >
+        <div class="set flex-box">
+            <div class="set-name">数据类型：</div>
+            <ul class="set-com">
+                <li><input type="radio" name="radio" data-labelauty="IMSI"></li>
+                <li><input type="radio" name="radio" data-labelauty="车牌"></li>
+                <li><input type="radio" name="radio" data-labelauty="MAC"></li>
+            </ul>
+        </div>
+        <div class="set flex-box">
+            <label class="set-name1">开始时间：</label>
+            <input type="text" name="date" class="date" id="date" lay-verify="date" placeholder="请选择开始时间" autocomplete="off" class="layui-input">
+        </div>
+        <div class="set1 flex-box">
+            <label class="set-name1">结束时间：</label>
+            <input type="text" name="date" class="date" id="date1" lay-verify="date" placeholder="请选择结束时间" autocomplete="off" class="layui-input">
+        </div>
+        <div id="area-con">
+            <div class="area-list">
+                <div class="set1 flex-box">
+                    <label class="set-name1">跟踪目标：</label>
+                    <form class="form-inline">
+                        <div id="distpicker">
+                            <div class="form-group">
+                                <div style="position: relative;">
+                                    <input id="city-picker3" class="city-picker" readonly type="text" value="请选择地点" data-toggle="city-picker">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-warning resets" id="reset" type="button" onclick="addArea(this)">新增</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="anter" type="button">搜 索</div>
+</script>
+<script src="js/jquery.js"></script>
+<script src="js/jquery-labelauty.js"></script>
+<script src="js/layer.js"></script>
+<script src="js/layui.js"></script>
+<script src="js/city-picker.data.js"></script>
+<script src="js/city-picker.js"></script>
+<script src="js/map.js"></script>
+<script>
+  $(function(){
+    $(':input').labelauty();
+  });
+  layui.use(['form', 'layedit', 'laydate', 'table'], function(){
+    var form = layui.form
+      ,layer = layui.layer
+      ,layedit = layui.layedit
+      ,laydate = layui.laydate;
+    //日期
+    laydate.render({
+      elem: '#date'
+    });
+    laydate.render({
+      elem: '#date1'
+    });
+  });
+  $('.list').delegate('.list-title>span', 'click',function () {
+      var thisId = $(this).attr('id')
+      $(this).parent().addClass('act').siblings().removeClass('act');
+      switch (thisId) {
+          case 'areaData':
+              break
+          case 'targetTracing':
+              $(".list").empty()
+              $(".list").append($("#nav").html())
+              $(".list").append($("#contain2").html())
+              $(function(){
+                  $(':input').labelauty();
+                  $.getScript("js/jquery-labelauty.js");
+                  $.getScript("js/city-picker.data.js");
+                  $.getScript("js/city-picker.js");
+                  layui.use(['form', 'layedit', 'laydate', 'table'], function(){
+                      var form = layui.form
+                          ,layer = layui.layer
+                          ,layedit = layui.layedit
+                          ,table = layui.table
+                          ,laydate = layui.laydate;
+                      //日期
+                      laydate.render({
+                          elem: '#date'
+                      });
+                      laydate.render({
+                          elem: '#date1'
+                      });
+                  });
+              });
+              break
+          case 'collisionStatic':
+              break
+          case 'groupCollision':
+              break
+          case 'togetherAnalysis':
+              break
+          case 'fomulaCalculate':
+              break
+          case 'targetStatic':
+              break
+      }
+  })
+</script>
+</body>
+</html>
