@@ -60,23 +60,6 @@ $('.list').delegate('.list-title>span', 'click',function () {
             break
     }
 })
-function createTab(cols,url){
-    $('.layui-form').remove();
-    layui.use('table', function(){
-        var table = layui.table;
-        table.on('tool(test1)', function(obj){
-            // 添加曲线轨迹
-            map.clearOverlays();
-            createCruvue()
-        })
-        table.render({
-            elem: '#tab'
-            ,url:url
-            ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-            ,cols:cols
-        });
-    })
-}
 // 随机生成曲线轨迹
 function createCruvue() {
   var bounds = map.getBounds();
@@ -276,7 +259,39 @@ $('.ipt-btn').click(function (e) {
 
 })
 //查询
-
+// 添加表格
+function createTab(cols,url){
+    $('.layui-form').remove();
+    layui.use('table', function(){
+        var table = layui.table;
+        table.on('tool(test1)', function(obj){
+            var thisHtml = ''
+            for(var key in obj.data) {
+                thisHtml+= `
+                    <span>${obj.data[key]}</span>    
+                `
+            }
+            var html = `
+                <div> ${thisHtml}</div> 
+                <div id = "operateBtn">
+                    <p>>><span>目标跟踪</span>|<span>临时布控</span>|<span>加入队列</span></p>
+                    <p>>><span>同行IMSI</span>|<span>同行MAC</span>|<span>同行车牌</span>|<span>IMSI比对</span>|<span>IMEI比对</span>|<span>手机号</span></p>
+                    <a href="javascript:void(0)" onclick="map.clearOverlays();createCruvue()"></a>
+                </div>
+            `
+            $('#operate').html(html)
+            // 添加曲线轨迹
+        })
+        table.render({
+            elem: '#tab'
+            ,url:url
+            ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            ,cols:cols
+            ,width:385
+            ,height:300
+        });
+    })
+}
 
 
 //返回
@@ -299,6 +314,11 @@ function remove_overlay(){
 
 
 //配置中心
+
+$("#operate").delegate('#operateBtn span','click',function () {
+    var content = $(this).html()
+})
+
 
 // 添加一个初始化的原型区域
 var drawingManager;
