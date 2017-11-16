@@ -5,6 +5,7 @@ body, html,#allmap {
   margin:0;
   color: #666666;
   font-family:"微软雅黑";
+  cursor: pointer;
 }
 input::placeholder{
   color: #999999;
@@ -134,7 +135,7 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
   background: #3498db;
 }
 .list-title:hover{
-  background: #28a3ff;
+  cursor: pointer;
 }
 .list-title span{
   width: 20px;
@@ -148,6 +149,7 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
 }
 .act{
   background: #9e0205;
+  cursor: pointer;
 }
 .list-cont{
   padding-bottom: 9px;
@@ -218,6 +220,19 @@ input.labelauty + label{
   width: 200px;
   height: 32px;
 }
+.ipt-picker{
+  width: 220px;
+  height: 30px;
+  padding-left: 5px;
+  border: 1px solid #ccc;
+}
+.ipt-picker::placeholder{
+  color: #999;
+}
+.set1 img{
+  margin-left: 5px;
+  cursor: pointer;
+}
 #anter{
   width: 200px;
   height: 32px;
@@ -231,4 +246,15 @@ input.labelauty + label{
 }
 #anter:hover{
   background: #e63732;
+}
+.arget-ipt{
+  width: 200px;
+}
+#arget-text{
+  width: 220px;
+  height: 150px;
+  margin-left: 82px;
+  margin-top: 2px;
+  background: #efefef;
+  border: 1px solid #cccccc;
 }

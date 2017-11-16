@@ -21,9 +21,21 @@ $('.list').delegate('.list-title>span', 'click',function () {
     var cols = '',url = '';
     switch (thisId) {
         case 'areaData':
+            $("#anter").removeClass('hide')
+            $("#main").removeClass('hide')
+            $("#tab").removeClass('hide')
+            $("#area-con").removeClass('hide')
+            $("#arget").addClass('hide')
+            $("#arget-text").removeClass('hide').val('')
+            $(".layui-form").remove()
             break
         case 'targetTracing':
-            $('#main').html('')
+            $("#anter").removeClass('hide')
+            $("#main").removeClass('hide')
+            $("#area-con").addClass('hide')
+            $("#arget").removeClass('hide')
+            $("#arget-text").removeClass('hide').val('')
+            $(".layui-form").remove()
             break
         case 'collisionStatic':
             break
@@ -113,18 +125,6 @@ function addMarker(point,label){
     marker2.setLabel(label);
     map.addOverlay(marker2);  // 将标注添加到地图中
 }
-// 随机向地图添加25个标注
-var bounds = map.getBounds();
-var sw = bounds.getSouthWest();
-var ne = bounds.getNorthEast();
-var lngSpan = Math.abs(sw.lng - ne.lng);
-var latSpan = Math.abs(ne.lat - sw.lat);
-for (var i = 0; i < 25; i ++) {
-    var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
-    var myIcon = new BMap.Icon("images/icon2-35.png", new BMap.Size(35,35));
-    var marker2 = new BMap.Marker(point,{icon:myIcon});  // 创建标注
-    map.addOverlay(marker2);// 将标注添加到地图中
-}
 
 //选择人物
 function listPer(e) {
@@ -159,7 +159,9 @@ function evt(e) {
 }
 
 var addArea = function (e) {
-    $("#area-con").append($("#areas").html())
+    $("#arget-text").val($("#city-picker3").val() + "\n" + $("#arget-text").val())
+    $(".title").html('')
+    $(".placeholder").css('display', 'block')
 }
 
 //搜索
@@ -168,6 +170,8 @@ $('.ipt-btn').click(function (e) {
     $(".list").removeClass("hide")
     $(".list").append($("#nav").html())
     $(".list").append($("#contain").html())
+    $("#area-con").removeClass('hide')
+    $("#arget-text").removeClass('hide')
     $(function(){
         $(':input').labelauty();
         $.getScript("js/jquery-labelauty.js");
@@ -242,7 +246,24 @@ $('.ipt-btn').click(function (e) {
         $("#anter").addClass('hide')
         $("#main").addClass('hide')
         $("#tab").removeClass('hide')
+        $("#arget-text").addClass('hide')
     })
+    $("#addImg").click(function (e) {
+        $("#arget-text").val($("#arget-ipt").val() + "\n" + $("#arget-text").val())
+    })
+    // 随机向地图添加25个标注
+    var bounds = map.getBounds();
+    var sw = bounds.getSouthWest();
+    var ne = bounds.getNorthEast();
+    var lngSpan = Math.abs(sw.lng - ne.lng);
+    var latSpan = Math.abs(ne.lat - sw.lat);
+    for (var i = 0; i < 25; i ++) {
+        var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+        var myIcon = new BMap.Icon("images/icon2-35.png", new BMap.Size(35,35));
+        var marker2 = new BMap.Marker(point,{icon:myIcon});  // 创建标注
+        map.addOverlay(marker2);// 将标注添加到地图中
+    }
+
 })
 //查询
 
@@ -252,7 +273,13 @@ $('.ipt-btn').click(function (e) {
 $(".ipt-cle").click(function (e) {
     $("#anter").removeClass('hide')
     $("#main").removeClass('hide')
-    $("#tab").addClass('hide')
+    $("#tab").removeClass('hide')
+    $("#area-con").removeClass('hide')
+    $("#arget").addClass('hide')
+    $("#arget-text").addClass('hide')
+    $(".layui-form").remove()
+    $(".list-title").removeClass("act")
+    $(".list-title:first").addClass("act")
 })
 
 //清除覆盖物
@@ -260,3 +287,4 @@ function remove_overlay(){
     map.clearOverlays();
 }
 //配置中心
+
