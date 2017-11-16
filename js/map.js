@@ -26,33 +26,9 @@ $('.list').delegate('.list-title>span', 'click',function () {
             layui.use('table', function(){
                 var table = layui.table;
                 table.on('tool(test1)', function(obj){
-                  var bounds = map.getBounds();
-                  var sw = bounds.getSouthWest();
-                  var ne = bounds.getNorthEast();
-                  var lngSpan = Math.abs(sw.lng - ne.lng);
-                  var latSpan = Math.abs(ne.lat - sw.lat);
-
-                  map.centerAndZoom(new BMap.Point(106.574737, 29.581328), 16);
-                  var pointsArr = []
-                  for (var i = 0; i < 8; i ++) {
-                    var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
-                    var label = new BMap.Label(i + 1, {
-                      position: point,
-                      offset: new BMap.Size(-4, -10)
-                    });
-                    label.setStyle({
-                       border: 'none',
-                       background: 'none',
-                       color : "#fff",
-                       fontSize : "12px",
-                       fontFamily:"微软雅黑"
-                     });
-                    map.addOverlay(label);
-                    pointsArr.push(point);
-                  }
-                  var curve = new BMapLib.CurveLine(pointsArr, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5}); //创建弧线对象
-                  map.addOverlay(curve); //添加到地图中
-                  curve.enableEditing(); //开启编辑功能
+                  // 添加曲线轨迹
+                  map.clearOverlays();
+                  createCruvue()
                 })
                 table.render({
                     elem: '#main'
@@ -60,12 +36,12 @@ $('.list').delegate('.list-title>span', 'click',function () {
                     ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
                     ,cols: [[
                         {field:'imsi', width:120, title: 'IMSI', event: 'showCrvue'}
-                        ,{field:'imei', width:120, title: 'IMEI'}
-                        ,{field:'phone', width:100, title: '电话'}
-                        ,{field:'address', width:150, title: '地址'}
-                        ,{field:'imsiaddress', title: 'IMSI地址', width: '100'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                        ,{field:'capturetime', title: '捕获时间', sort: true,width: '100'}
-                        ,{field:'sign', title: '运营商'}
+                        ,{field:'imei', width:120, title: 'IMEI', event: 'showCrvue'}
+                        ,{field:'phone', width:100, title: '电话', event: 'showCrvue'}
+                        ,{field:'address', width:150, title: '地址', event: 'showCrvue'}
+                        ,{field:'imsiaddress', title: 'IMSI地址', width: '100', event: 'showCrvue'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                        ,{field:'capturetime', title: '捕获时间', sort: true,width: '100', event: 'showCrvue'}
+                        ,{field:'sign', title: '运营商', event: 'showCrvue'}
                     ]]
                 });
             })
@@ -82,6 +58,37 @@ $('.list').delegate('.list-title>span', 'click',function () {
             break
     }
 })
+// 随机生成曲线轨迹
+function createCruvue() {
+  var bounds = map.getBounds();
+  var sw = bounds.getSouthWest();
+  var ne = bounds.getNorthEast();
+  var lngSpan = Math.abs(sw.lng - ne.lng);
+  var latSpan = Math.abs(ne.lat - sw.lat);
+
+  map.centerAndZoom(new BMap.Point(106.574737, 29.581328), 16);
+  var pointsArr = []
+  for (var i = 0; i < 8; i ++) {
+    var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+    var label = new BMap.Label(i + 1, {
+      position: point,
+      offset: new BMap.Size(-4, -10)
+    });
+    label.setStyle({
+       border: 'none',
+       background: 'none',
+       color : "#fff",
+       fontSize : "12px",
+       fontFamily:"微软雅黑"
+     });
+    map.addOverlay(label);
+    pointsArr.push(point);
+  }
+  var curve = new BMapLib.CurveLine(pointsArr, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5}); //创建弧线对象
+  map.addOverlay(curve); //添加到地图中
+  curve.enableEditing(); //开启编辑功能
+}
+
 // 百度地图API功能
 var map = new BMap.Map('map');
 var poi = new BMap.Point(106.574737,29.581328);
