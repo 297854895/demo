@@ -1,0 +1,234 @@
+body, html,#allmap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin:0;
+  color: #666666;
+  font-family:"微软雅黑";
+}
+input::placeholder{
+  color: #999999;
+}
+.layui-table-cell,.laytable-cell-1-sign{
+  font-size: 12px!important;
+  padding: 0 5px
+}
+.layui-table-sort{
+  margin-left: 0;
+}
+ul { list-style-type: none;}
+li { display: inline-block;}
+li { margin: 10px 0;}
+input.labelauty + label { font: 12px "Microsoft Yahei";}
+.flex-box{
+  display: -webkit-box;
+  display: box;
+  display: -webkit-flex;
+  display: flex;
+}
+.flex{
+  -webkit-box-flex: 1;
+  box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+.single-line {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}
+.ipt{
+  width: 395px;
+  position: absolute;
+  height: 38px;
+  left: 15px;
+  top: 15px;
+  box-shadow: 3px 3px 2px #888888;
+  display: inline-block;
+  overflow: hidden;
+}
+.ipt input{
+  box-sizing: border-box;
+  border: 0;
+  width: 300px;
+  padding: 0 0 0 10px;
+  line-height: 20px;
+  font-size: 16px;
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  height: 38px;
+  color: #333;
+  border-radius: 2px 0 0 2px;
+  float: left;
+}
+.ipt-cle{
+  width: 38px;
+  height: 38px;
+  background: #efefef;
+  float: left;
+  cursor: pointer;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  text-align: center;
+  line-height: 38px;
+  font-size: 20px;
+  color: #999999;
+}
+.ipt-cle:hover{
+  width: 38px;
+  height: 38px;
+  background: #efefef;
+  float: left;
+  cursor: pointer;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  text-align: center;
+  line-height: 38px;
+  font-size: 20px;
+  color: #666666;
+}
+.ipt-btn{
+  pointer-events: auto;
+  background: url(http://webmap0.map.bdstatic.com/wolfman/static/common/images/new/searchbox_f175577.png) no-repeat 0 -76px #3385ff;
+  width: 57px;
+  height: 38px;
+  border: 0;
+  margin: 0px 0 0 0;
+  border-top: 1px solid #346fff;
+  cursor: pointer;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 1px 2px 1px rgba(0,0,0,.15);
+  float: right;
+}
+.list{
+  width: 394px;
+  min-height: 30px;
+  position: absolute;
+  left: 15px;
+  top: 53px;
+  background: #ffffff;
+  box-shadow: 3px 3px 2px #888888;
+  border: 1px solid #ccc;
+  padding-bottom: 30px;
+}
+.hide{
+  display: none;
+}
+.list-title{
+  margin: 6px 6px 0 6px;
+  cursor: pointer;
+  border-radius: 4px;
+  text-align: center;
+  padding: 1px 6px;
+  color: #ffffff;
+  background: #3498db;
+}
+.list-title:hover{
+  background: #28a3ff;
+}
+.list-title span{
+  width: 20px;
+}
+.list-title span i{
+  margin: 0;
+  width: 100%;
+  height: 20px;
+  padding: 5px 0px;
+  font-style: normal;
+}
+.act{
+  background: #9e0205;
+}
+.list-cont{
+  padding-bottom: 9px;
+  padding-top: 2px;
+  border-bottom: 1px dashed #cccccc;
+}
+.set{
+  width: 100%;
+  margin: 0 auto;
+}
+.set1{
+  width: 100%;
+  margin-top: 15px;
+}
+.set-name{
+  margin-top: 13px;
+  margin-left: 16px;
+}
+input.labelauty + label{
+  display: table;
+  font-size: 14px;
+  padding: 3px 14px 4px 6px!important;
+  margin: 0 5px;
+  background-color: #efefef;
+  color: #b3b3b3;
+  cursor: pointer;
+  border-radius: 3px 3px 3px 3px;
+  -moz-border-radius: 3px 3px 3px 3px;
+  -webkit-border-radius: 3px 3px 3px 3px;
+  transition: background-color 0.25s;
+  -moz-transition: background-color 0.25s;
+  -webkit-transition: background-color 0.25s;
+  -o-transition: background-color 0.25s;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+.date{
+  width: 241px;
+  height: 30px;
+  border: 1px solid #cccccc;
+  margin-left: 5px;
+  padding-left: 5px;
+  line-height: 30px;
+}
+.set-name1{
+  margin-left: 16px;
+  height: 30px;
+  line-height: 30px;
+}
+#area{
+  width: 243px;
+  margin-left: 5px;
+  border: 1px solid #cccccc;
+  padding-left: 5px;
+}
+.resets{
+  width: 243px;
+  margin-left: 5px;
+  border: 1px solid #cccccc;
+  padding-left: 5px;
+}
+#tab{
+  font-size: 12px;
+}
+.city-picker{
+  width: 200px;
+  height: 32px;
+}
+#anter{
+  width: 200px;
+  height: 32px;
+  margin: 20px auto 0 auto;
+  text-align: center;
+  line-height: 32px;
+  background: #c9302c;
+  color: #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#anter:hover{
+  background: #e63732;
+}
