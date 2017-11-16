@@ -66,27 +66,28 @@ function createCruvue() {
   var lngSpan = Math.abs(sw.lng - ne.lng);
   var latSpan = Math.abs(ne.lat - sw.lat);
 
-  map.centerAndZoom(new BMap.Point(106.574737, 29.581328), 16);
+  // map.centerAndZoom(new BMap.Point(106.574737, 29.581328), 16);
   var pointsArr = []
   for (var i = 0; i < 8; i ++) {
     var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
-    var label = new BMap.Label(i + 1, {
-      position: point,
-      offset: new BMap.Size(-4, -10)
-    });
+    var marker = new BMap.Marker(point);
+    var label = new BMap.Label(i+1,{offset:new BMap.Size(5, 0)})
     label.setStyle({
        border: 'none',
        background: 'none',
        color : "#fff",
-       fontSize : "12px",
-       fontFamily:"微软雅黑"
+			 fontSize : "12px",
+			 height : "20px",
+			 lineHeight : "20px",
+			 fontFamily:"微软雅黑"
      });
-    map.addOverlay(label);
+    map.addOverlay(marker);
+    marker.setLabel(label)
     pointsArr.push(point);
   }
   var curve = new BMapLib.CurveLine(pointsArr, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5}); //创建弧线对象
   map.addOverlay(curve); //添加到地图中
-  curve.enableEditing(); //开启编辑功能
+  // curve.enableEditing(); //开启编辑功能
 }
 
 // 百度地图API功能
