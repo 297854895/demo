@@ -50,7 +50,9 @@ $('.list').delegate('.list-title>span', 'click',function () {
                     map.addOverlay(label);
                     pointsArr.push(point);
                   }
-                  
+                  var curve = new BMapLib.CurveLine(pointsArr, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5}); //创建弧线对象
+                  map.addOverlay(curve); //添加到地图中
+                  curve.enableEditing(); //开启编辑功能
                 })
                 table.render({
                     elem: '#main'
