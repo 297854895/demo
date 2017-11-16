@@ -265,6 +265,7 @@ function createTab(cols,url){
     layui.use('table', function(){
         var table = layui.table;
         table.on('tool(test1)', function(obj){
+            $('#operate').toggleClass('hide');
             var thisHtml = ''
             for(var key in obj.data) {
                 thisHtml+= `
@@ -317,6 +318,7 @@ function remove_overlay(){
 
 $("#operate").delegate('#operateBtn span','click',function () {
     var content = $(this).html()
+    alert('正在执行'+content)
 })
 
 
