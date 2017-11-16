@@ -120,7 +120,7 @@ $('.ipt-btn').click(function (e) {
     $(':input').labelauty();
   });
   $('#anter').click(function (e) {
-    $("#main").html($("#show-list").html())
+    $("#main").html($("#show-areaData").html())
     $("#anter").remove()
     layui.use(['form', 'layedit', 'laydate', 'table'], function(){
       var form = layui.form
