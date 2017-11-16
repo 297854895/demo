@@ -34,10 +34,10 @@ $('.list').delegate('.list-title>span', 'click',function () {
         case 'areaData':
             $("#anter").removeClass('hide')
             $("#main").removeClass('hide')
-            $("#tab").removeClass('hide')
             $("#area-con").removeClass('hide')
             $("#arget").addClass('hide')
             $("#arget-text").removeClass('hide').val('')
+            $("#arget-ipt").val('')
             $(".layui-form").remove()
             break
         case 'targetTracing':
@@ -46,6 +46,7 @@ $('.list').delegate('.list-title>span', 'click',function () {
             $("#area-con").addClass('hide')
             $("#arget").removeClass('hide')
             $("#arget-text").removeClass('hide').val('')
+            $("#arget-ipt").val('')
             $(".layui-form").remove()
             break
         case 'collisionStatic':
@@ -304,7 +305,7 @@ $(".ipt-cle").click(function (e) {
     $("#tab").removeClass('hide')
     $("#area-con").removeClass('hide')
     $("#arget").addClass('hide')
-    $("#arget-text").addClass('hide')
+    $("#arget-text").removeClass('hide')
     $(".layui-form").remove()
     $(".list-title").removeClass("act")
     $(".list-title:first").addClass("act")
