@@ -215,7 +215,7 @@ $('.ipt-btn').click(function (e) {
         var cols = '',url = '';
         switch (thisCheckId) {
             case 'areaData':
-                $("#listBtn").removeClass('hide')
+                $("#listBtn1").removeClass('hide')
                 cols = [[
                     {field:'id', width:120, sort: true, title: 'IMSI'}
                     ,{field:'username', width:120, title: '手机号', event: 'showCrvue'}
@@ -356,6 +356,8 @@ function closeList() {
     $("#operate").addClass("hide")
     $("#close").addClass("hide")
     $("#listBtn").addClass("hide")
+    $("#listBtn1").addClass("hide")
+
 }
 
 //配置中心
