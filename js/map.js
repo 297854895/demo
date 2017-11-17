@@ -1,14 +1,5 @@
 
 var one = 1
-var pageY = '';
-$('body').click(function(e){
-    pageY = e.pageY
-    var tableWidth = $('.layui-form').width()
-    $('#operate').css({
-        top:pageY,
-        width:tableWidth
-    })
-})
 $(function(){
     $(':input').labelauty();
 });
@@ -43,6 +34,9 @@ $('.list').delegate('.list-title>span', 'click',function () {
     $('#operate').addClass('hide')
     switch (thisId) {
         case 'areaData':
+            $('#operate').css({
+                width:'394px'
+            })
             $("#anter").removeClass('hide')
             $("#main").removeClass('hide')
             $("#area-con").removeClass('hide')
@@ -52,6 +46,9 @@ $('.list').delegate('.list-title>span', 'click',function () {
             $(".layui-form").remove()
             break
         case 'targetTracing':
+            $('#operate').css({
+                width:'763px'
+            })
             $("#anter").removeClass('hide')
             $("#main").removeClass('hide')
             $("#area-con").addClass('hide')
@@ -229,7 +226,7 @@ $('.ipt-btn').click(function (e) {
             case 'targetTracing':
                 $("#listBtn").removeClass('hide')
                 $('#operate').css({
-                    width:'480px'
+                    width:'763px;'
                 })
                 cols = [[
                     {field:'imsi', width:120, title: 'IMSI', event: 'showCrvue'}
@@ -356,6 +353,7 @@ function closeList() {
     $("#operate").addClass("hide")
     $("#close").addClass("hide")
     $("#listBtn").addClass("hide")
+    $('#tab').addClass('hide');
 }
 
 //配置中心
@@ -419,17 +417,20 @@ $('#operate').click(function(){
     event.stopPropagation();
 })
 function createUl(){
+    if ($('#tableId')){
+        $('#tableId').remove();
+    }
     var table = document.createElement('table')
     table.id = 'tableId'
     var thead =`
         <thead>
         <tr>
-        <th>IMSI</th>
-        <th>IMEI</th>
-        <th>电话号码</th>
-        <th>地点</th>
-        <th>次数</th>
-        <th>运营商</th>
+        <th style="width:150px;">IMSI</th>
+        <th style="width:150px;">IMEI</th>
+        <th style="width:120px;">电话号码</th>
+        <th style="width:150px;">地点</th>
+        <th style="width:60px;">次数</th>
+        <th style="width:80px;">运营商</th>
 </tr>
 </thead>
     `
@@ -462,11 +463,10 @@ function createUl(){
             `
         })
         table.innerHTML = thead + '<tbody>' + html + '</tbody>'
-        console.log(table)
         document.getElementById('tab').append(table)
+        $('#tab').removeClass('hide')
     })
 }
-// createUl()
 $('#tab').delegate('tbody tr','click',function () {
    var thisId = $(this).attr('data-id')
     var data = tabdata[thisId]
@@ -499,7 +499,7 @@ $('#tab').delegate('tbody tr','click',function () {
                 </div>
             `
     $('#operate').html(html).toggleClass('hide').css({
-        width:'600px'
+        width:'763px'
     })
 })
 
@@ -562,3 +562,30 @@ var tabdata = [
         "sign":"电信"
     }
 ];
+$('#listBtn').delegate('button','click',function(){
+    $(this).addClass('act').siblings().removeClass('act')
+    var index=$(this).index()
+    $('#operate').addClass('hide')
+    switch (index) {
+        case 1:
+            createUl()
+            $('.layui-form').remove();
+            break
+        case 2:
+            break
+        case 0:
+            cols = [[
+                {field:'imsi', width:120, title: 'IMSI', event: 'showCrvue'}
+                ,{field:'imei', width:120, title: 'IMEI', event: 'showCrvue'}
+                ,{field:'phone', width:100, title: '电话', event: 'showCrvue'}
+                ,{field:'address', width:150, title: '地址', event: 'showCrvue'}
+                ,{field:'imsiaddress', title: 'IMSI地址', width: '100', event: 'showCrvue'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                ,{field:'capturetime', title: '捕获时间', sort: true,width: '100', event: 'showCrvue'}
+                ,{field:'sign', title: '运营商', event: 'showCrvue'}
+            ]];
+            url = 'json/targetTarcing.json'
+            createTab(cols,url)
+            break
+    }
+
+})
