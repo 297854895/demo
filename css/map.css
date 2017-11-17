@@ -262,8 +262,12 @@ input.labelauty + label{
   position: fixed;
   z-index: 999999;
   top:12px;
+  color: #ffffff!important;
   left: 16px;
 }
 .btns-list{
-  width: 254px;
+  width: 252px;
+  height: 37px;
+  background: #1E9FFF;
+  color: #ffffff!important;
 }

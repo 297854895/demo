@@ -70,6 +70,9 @@
       opacity: 0.2;
       margin-top: 200px;
     }
+    .act{
+      background: #9e0205;
+    }
     .act:hover{
       background: #9e0205;
     }
@@ -88,6 +91,7 @@
       text-align: center;
       line-height: 20px;
       color:#fff;
+      z-index: 999999;
     }
   </style>
 </head>
@@ -188,10 +192,12 @@
   </div>
   <div id="anter" type="button">搜 索</div>
   <!--目标跟踪切换按钮-->
-  <div id="listBtn" class="layui-btn-group btns hide">
-    <button class="layui-btn btns-list">列表模式</button>
-    <button class="layui-btn btns-list">地点模式</button>
-    <button class="layui-btn btns-list">统计模式</button>
+  <div id="listBtn" class="btns hide">
+    <button class="btns-list act">列表模式</button>
+    <button class="btns-list">地点模式</button>
+    <button class="btns-list">统计模式</button>
+  </div>
+  <div id="listBtn1" class="btns1 hide">
   </div>
 </script>
 <script src="js/jquery.js"></script>
