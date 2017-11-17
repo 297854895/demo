@@ -3,6 +3,11 @@ var one = 1
 var pageY = '';
 $('body').click(function(e){
     pageY = e.pageY
+    var tableWidth = $('.layui-form').width()
+    $('#operate').css({
+        top:pageY,
+        width:tableWidth
+    })
 })
 $(function(){
     $(':input').labelauty();
@@ -210,9 +215,6 @@ $('.ipt-btn').click(function (e) {
         var cols = '',url = '';
         switch (thisCheckId) {
             case 'areaData':
-                $('#operate').css({
-                    width:'394px'
-                })
                 cols = [[
                     {field:'id', width:120, sort: true, title: 'IMSI'}
                     ,{field:'username', width:120, title: '手机号', event: 'showCrvue'}
@@ -253,9 +255,8 @@ $('.ipt-btn').click(function (e) {
         }
         $("#anter").addClass('hide')
         $("#main").addClass('hide')
-        // $("#tab").removeClass('hide')
         $("#arget-text").addClass('hide')
-        var tableWidth = $('.layui-form').width()
+        var tableWidth = $('.layui-form').width() + 20
         $('#close').css({
             left:tableWidth
         })
@@ -287,12 +288,12 @@ function createTab(cols,url){
     layui.use('table', function(){
         var table = layui.table;
         table.on('tool(test1)', function(obj){
-            $('#operate').toggleClass('hide');
+            $('#operate').toggleClass('hide')
             var thisHtml = ''
             for(var key in obj.data) {
-                var str = obj.data[key].length < 5 ? obj.data[key] : obj.data[key].substring(0,5) + '....'
+                // var str = obj.data[key].length < 5 ? obj.data[key] : obj.data[key].substring(0,5) + '....'
                 thisHtml+= `
-                    <span>${str}</span>    
+                    <span>${obj.data[key]}</span>    
                 `
             }
             var html = `
@@ -300,7 +301,7 @@ function createTab(cols,url){
                 <div id = "operateBtn">
                     <p>>><span>目标跟踪</span>|<span>临时布控</span>|<span>加入队列</span></p>
                     <p>>><span>同行IMSI</span>|<span>同行MAC</span>|<span>同行车牌</span>|<span>IMSI比对</span>|<span>IMEI比对</span>|<span>手机号</span></p>
-                    <a href="javascript:void(0)" onclick="map.clearOverlays();createCruvue()"></a>
+                    <a href="javascript:void(0)" onclick="Anchor()"></a>
                 </div>
             `
             $('#operate').html(html)
@@ -317,7 +318,11 @@ function createTab(cols,url){
     })
 }
 
-
+function Anchor(){
+    event.stopPropagation();
+    map.clearOverlays();
+    createCruvue()
+}
 //返回
 $(".ipt-cle").click(function (e) {
     $("#anter").removeClass('hide')
@@ -354,6 +359,7 @@ function closeList() {
 //配置中心
 
 $("#operate").delegate('#operateBtn span','click',function () {
+    event.stopPropagation();
     var content = $(this).html()
     alert('正在执行'+content)
 })
@@ -407,3 +413,6 @@ function createCircle() {
     }
     drawingManager.setDrawingMode(BMAP_DRAWING_CIRCLE);
 }
+$('#operate').click(function(){
+    event.stopPropagation();
+})
