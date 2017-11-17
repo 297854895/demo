@@ -283,9 +283,9 @@ function createTab(cols,url){
             $('#operate').toggleClass('hide')
             var thisHtml = ''
             for(var key in obj.data) {
-                var str = obj.data[key].length < 5 ? obj.data[key] : obj.data[key].substring(0,5) + '....'
+                // var str = obj.data[key].length < 5 ? obj.data[key] : obj.data[key].substring(0,5) + '....'
                 thisHtml+= `
-                    <span>${str}</span>    
+                    <span>${obj.data[key]}</span>    
                 `
             }
             var html = `
