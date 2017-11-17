@@ -394,3 +394,7 @@ function createCircle() {
 $('#operate').click(function(){
     event.stopPropagation();
 })
+function createUl(){
+    var ul = docuemnt.createElement('ul')
+    ul.id = 'ulId'
+}
