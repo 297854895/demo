@@ -328,6 +328,7 @@ function Anchor(){
     $(".ipt").addClass('hide')
     $(".list").addClass('hide')
     $("#start").removeClass("hide")
+    $("#tab").addClass('hide')
 }
 //取消规划
 function UnAnchor(){
@@ -338,6 +339,7 @@ function UnAnchor(){
     $(".ipt").removeClass('hide')
     $(".list").removeClass('hide')
     $("#start").addClass("hide")
+    $("#tab").removeClass('hide')
 }
 //返回
 $(".ipt-cle").click(function (e) {
