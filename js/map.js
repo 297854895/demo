@@ -226,6 +226,10 @@ $('.ipt-btn').click(function (e) {
                 createTab(cols,url)
                 break
             case 'targetTracing':
+                $("#listBtn").removeClass('hide')
+                $('#operate').css({
+                    width:'480px'
+                })
                 cols = [[
                     {field:'imsi', width:120, title: 'IMSI', event: 'showCrvue'}
                     ,{field:'imei', width:120, title: 'IMEI', event: 'showCrvue'}
@@ -276,7 +280,6 @@ $('.ipt-btn').click(function (e) {
         }
         one = 2
     }
-    console.log(one)
 })
 //查询
 // 添加表格
