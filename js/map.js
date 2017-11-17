@@ -250,7 +250,7 @@ $('.ipt-btn').click(function (e) {
         $("#anter").addClass('hide')
         $("#main").addClass('hide')
         $("#arget-text").addClass('hide')
-        var tableWidth = $('.layui-form').width()
+        var tableWidth = $('.layui-form').width() + 20
         $('#close').css({
             left:tableWidth
         })
@@ -337,6 +337,7 @@ function remove_overlay(){
 //配置中心
 
 $("#operate").delegate('#operateBtn span','click',function () {
+    event.stopPropagation();
     var content = $(this).html()
     alert('正在执行'+content)
 })
