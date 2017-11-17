@@ -347,7 +347,7 @@ $(".ipt-cle").click(function (e) {
     $("#area-con").removeClass('hide')
     $("#arget").addClass('hide')
     $("#arget-text").removeClass('hide')
-    $(".layui-form").remove()
+    $("#allmap > .layui-form").remove()
     $(".list-title").removeClass("act")
     $(".list-title:first").addClass("act")
 })
