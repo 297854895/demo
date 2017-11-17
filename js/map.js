@@ -347,6 +347,7 @@ function closeList() {
     $("#arget").addClass('hide')
     $("#arget-text").removeClass('hide')
     $("#allmap > .layui-form").remove()
+    //fuck
     $(".list-title").removeClass("act")
     $(".list-title:first").addClass("act")
     $("#operate").addClass("hide")
