@@ -212,7 +212,7 @@ $('.ipt-btn').click(function (e) {
         var cols = '',url = '';
         switch (thisCheckId) {
             case 'areaData':
-                $("#listBtn").removeClass('hide')
+                $("#listBtn1").removeClass('hide')
                 cols = [[
                     {field:'id', width:120, sort: true, title: 'IMSI'}
                     ,{field:'username', width:120, title: '手机号', event: 'showCrvue'}
@@ -316,16 +316,34 @@ function createTab(cols,url){
     })
 }
 
+//开始规划
 function Anchor(){
     event.stopPropagation();
     map.clearOverlays();
     createCruvue()
+    $(".layui-form").addClass('hide')
+    $("#operate").addClass('hide')
+    $("#listBtn").addClass('hide')
+    $("#close").addClass('hide')
+    $(".ipt").addClass('hide')
+    $(".list").addClass('hide')
+    $("#start").removeClass("hide")
+}
+//取消规划
+function UnAnchor(){
+    $(".layui-form").removeClass('hide')
+    $("#operate").removeClass('hide')
+    $("#listBtn").removeClass('hide')
+    $("#close").removeClass('hide')
+    $(".ipt").removeClass('hide')
+    $(".list").removeClass('hide')
+    $("#start").addClass("hide")
 }
 //返回
 $(".ipt-cle").click(function (e) {
     $("#anter").removeClass('hide')
     $("#main").removeClass('hide')
-    $("#tab").removeClass('hide')
+    $("#tab").addClass('hide')
     $("#area-con").removeClass('hide')
     $("#arget").addClass('hide')
     $("#arget-text").removeClass('hide')
@@ -353,7 +371,8 @@ function closeList() {
     $("#operate").addClass("hide")
     $("#close").addClass("hide")
     $("#listBtn").addClass("hide")
-    $('#tab').addClass('hide');
+    $("#listBtn1").addClass("hide")
+    $('#tab').addClass('hide')
 }
 
 //配置中心

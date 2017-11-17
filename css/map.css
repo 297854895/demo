@@ -260,7 +260,7 @@ input.labelauty + label{
 }
 .btns{
   position: fixed;
-  z-index: 999999;
+  z-index: 9999;
   top:12px;
   color: #ffffff!important;
   left: 16px;
@@ -270,4 +270,23 @@ input.labelauty + label{
   height: 37px;
   background: #1E9FFF;
   color: #ffffff!important;
+}
+#listBtn1{
+  position: fixed;
+  z-index: 9999;
+  top:12px;
+  color: #ffffff!important;
+  left: 16px;
+  width: 611px;
+  height: 37px;
+  background: #1E9FFF;
+  text-align: center;
+  line-height: 37px;
+}
+#start{
+  position: fixed;
+  z-index: 9999;
+  top:60px;
+  color: #ffffff!important;
+  left: 60px;
 }
