@@ -464,7 +464,7 @@ function createUl(){
         document.getElementById('tab').append(table)
     })
 }
-createUl()
+// createUl()
 $('#tab').delegate('tbody tr','click',function () {
    var thisId = $(this).attr('data-id')
     var data = tabdata[thisId]
