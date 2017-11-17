@@ -1,14 +1,5 @@
 
 var one = 1
-var pageY = '';
-$('body').click(function(e){
-    pageY = e.pageY
-    var tableWidth = $('.layui-form').width()
-    $('#operate').css({
-        top:pageY,
-        width:tableWidth
-    })
-})
 $(function(){
     $(':input').labelauty();
 });
@@ -43,6 +34,9 @@ $('.list').delegate('.list-title>span', 'click',function () {
     $('#operate').addClass('hide')
     switch (thisId) {
         case 'areaData':
+            $('#operate').css({
+                width:'394px'
+            })
             $("#anter").removeClass('hide')
             $("#main").removeClass('hide')
             $("#area-con").removeClass('hide')
@@ -52,6 +46,9 @@ $('.list').delegate('.list-title>span', 'click',function () {
             $(".layui-form").remove()
             break
         case 'targetTracing':
+            $('#operate').css({
+                width:'763px'
+            })
             $("#anter").removeClass('hide')
             $("#main").removeClass('hide')
             $("#area-con").addClass('hide')
@@ -108,29 +105,54 @@ function createCruvue() {
 // 监听轨迹点点击事件
 function listenMarkerClick(obj) {
   var number = Number(obj.target.zc.innerText);
+  var action = $('#listBtn .act').text();
   event.stopPropagation()
   var sContent = '<div id="cruvueTable"><div id="cruvueTables"></div></div>';
   var infoWindow = new BMap.InfoWindow(sContent)
   this.openInfoWindow(infoWindow);
   setTimeout(function() {
     var table = layui.table
-    var cols = [[
+    var cols = action === '列表模式' ? [[
       {field:'id', width:120, sort: true, title: 'IMSI'}
       ,{field:'username', width:120, title: '手机号'}
       ,{field:'sex', width:100, title: '归属地'}
       ,{field:'city', width:150, title: '时间'}
       ,{field:'sign', title: '运营商', width: '100'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-    ]];
+    ]] : action === '地点模式' ? [[
+      {field:'id', width:120, sort: true, title: 'IMSI'}
+      ,{field:'sex', width:100, title: '归属地'}
+      ,{field:'city', width:150, title: '时间'}
+    ]] : [[
+      {field:'id', width:120, sort: true, title: 'IMSI'}
+      ,{field:'sex', width:100, title: '归属地'}
+      ,{field:'city', width:150, title: '时间'}
+    ]]
 
-    var url = 'json/table1.json'
+    // var url = 'json/table1.json'
+
+    var data = function () {
+      var dataArr = []
+      for (var i = 0; i< number; i++) {
+        dataArr.push(
+          {
+            "id": "46002868422786"+i,
+            "username": "1389233002"+i,
+            "sex": "重庆",
+            "city": "2017-11-10",
+            "sign":"移动"
+          }
+        )
+      }
+      return dataArr
+    }()
 
     table.render({
       elem: '#cruvueTables'
-      ,url: url
+      // ,url: url
+      ,data: data
       ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
       ,cols: cols
       // ,width:800
-      ,height:300
     });
     infoWindow.redraw()
   }, 200)
@@ -260,7 +282,7 @@ $('.ipt-btn').click(function (e) {
             case 'targetTracing':
                 $("#listBtn").removeClass('hide')
                 $('#operate').css({
-                    width:'480px'
+                    width:'763px;'
                 })
                 cols = [[
                     {field:'imsi', width:120, title: 'IMSI', event: 'showCrvue'}
@@ -377,16 +399,17 @@ function remove_overlay(){
 function closeList() {
     $("#anter").removeClass('hide')
     $("#main").removeClass('hide')
-    $("#tab").removeClass('hide')
     $("#area-con").removeClass('hide')
     $("#arget").addClass('hide')
     $("#arget-text").removeClass('hide')
-    $(".layui-form").remove()
+    $("#allmap > .layui-form").remove()
+    //fuck
     $(".list-title").removeClass("act")
     $(".list-title:first").addClass("act")
     $("#operate").addClass("hide")
     $("#close").addClass("hide")
     $("#listBtn").addClass("hide")
+    $('#tab').addClass('hide');
 }
 
 //配置中心
@@ -450,6 +473,187 @@ $('#operate').click(function(){
     event.stopPropagation();
 })
 function createUl(){
-    var ul = docuemnt.createElement('ul')
-    ul.id = 'ulId'
+    if ($('#tableId')){
+        $('#tableId').remove();
+    }
+    var table = document.createElement('table')
+    table.id = 'tableId'
+    var thead =`
+        <thead>
+        <tr>
+        <th style="width:150px;">IMSI</th>
+        <th style="width:150px;">IMEI</th>
+        <th style="width:120px;">电话号码</th>
+        <th style="width:150px;">地点</th>
+        <th style="width:60px;">次数</th>
+        <th style="width:80px;">运营商</th>
+</tr>
+</thead>
+    `
+    var html="";
+    $.getJSON("json/json2.json", function (data){
+        data.data.forEach(function (i,v) {
+            var add=""
+            i.address.forEach(function (item, index) {
+                add+=`
+                    <p>${item}</p>
+                `
+            })
+            var times=""
+            i.time.forEach(function (item, index) {
+                times+=`
+                    <p>
+                    ${item}
+</p>
+                `
+            })
+            html += `
+                <tr data-id=${v}>
+                <td>${i.imsi}</td>
+                <td>${i.imei}</td>
+                <td>${i.phone}</td>
+                <td>${add}</td>
+                <td>${times}</td>
+                <td>${i.sign}</td>
+</tr>
+            `
+        })
+        table.innerHTML = thead + '<tbody>' + html + '</tbody>'
+        document.getElementById('tab').append(table)
+        $('#tab').removeClass('hide')
+    })
 }
+$('#tab').delegate('tbody tr','click',function () {
+   var thisId = $(this).attr('data-id')
+    var data = tabdata[thisId]
+    var address = ''
+    var times = ''
+    data.address.forEach(function(item, idex){
+        address+= `
+            <em>${item}</em>
+        `
+    })
+    data.time.forEach(function(item, index){
+        times+=`
+            <em>${item}</em>
+        `
+    })
+    var thisHtml = `
+        <span>${data.imsi}</span>
+        <span>${data.imei}</span>
+        <span>${data.phone}</span>
+        <span>${address}</span>
+        <span>${times}</span>
+        <span>${data.sign}</span>
+    `
+    var html = `
+                <div id="times"> ${thisHtml}</div>
+                <div id = "operateBtn">
+                    <p>>><span>目标跟踪</span>|<span>临时布控</span>|<span>加入队列</span></p>
+                    <p>>><span>同行IMSI</span>|<span>同行MAC</span>|<span>同行车牌</span>|<span>IMSI比对</span>|<span>IMEI比对</span>|<span>手机号</span></p>
+                    <a href="javascript:void(0)" onclick="Anchor()"></a>
+                </div>
+            `
+    $('#operate').html(html).toggleClass('hide').css({
+        width:'763px'
+    })
+})
+
+
+var tabdata = [
+    {
+        "imsi":"460028684227868",
+        "imei":"386778867533230",
+        "phone": "13892330021",
+        "address":["龙头市转盘路口A","龙头市转盘路口B","龙头市转盘路口C"],
+        "time":["10", "20", "1"],
+        "sign":"移动"
+    },
+    {
+        "imsi":"460028684227867",
+        "imei":"386778867533231",
+        "phone": "13892330022",
+        "address":["黄花园大桥A","黄花园大桥B","黄花园大桥C"],
+        "time":["3", "15", "2"],
+        "sign":"移动"
+    },
+    {
+        "imsi":"460028684227867",
+        "imei":"386778867533231",
+        "phone": "13892330022",
+        "address":["江北城A","江北城B"],
+        "time":["3", "10"],
+        "sign":"移动"
+    },
+    {
+        "imsi":"460028684227860",
+        "imei":"386778867533232",
+        "phone": "13892330522",
+        "address":["南坪轻轨站A出口","南坪轻轨站B出口","南坪轻轨站C出口"],
+        "time":["9", "12","30"],
+        "sign":"联通"
+    },
+    {
+        "imsi":"460028684267860",
+        "imei":"386978867533232",
+        "phone": "13892330122",
+        "address":["红土地A","红土地B"],
+        "time":["9", "30"],
+        "sign":"电信"
+    },
+    {
+        "imsi":"460028684267060",
+        "imei":"386978867533232",
+        "phone": "13892330322",
+        "address":["红旗河沟A","红旗河沟B"],
+        "time":["9", "11"],
+        "sign":"电信"
+    },
+    {
+        "imsi":"460028684267020",
+        "imei":"386978867563232",
+        "phone": "13892330722",
+        "address":["观音桥","北城天街","九街"],
+        "time":["9", "11","20"],
+        "sign":"电信"
+    }
+];
+$('#listBtn').delegate('button','click',function(){
+    $(this).addClass('act').siblings().removeClass('act')
+    var index=$(this).index()
+    $('#operate').addClass('hide')
+    switch (index) {
+        case 1:
+            createUl()
+            $('.layui-form').remove();
+            break
+        case 2:
+            cols = [[
+                {field:'imsi', width:150, title: 'IMSI', event: 'showCrvue'}
+                ,{field:'phone', width:100, title: '电话', event: 'showCrvue'}
+                ,{field:'sign', title: '运营商', event: 'showCrvue'}
+                ,{field:'times', width:140, title: '次数', event: 'showCrvue'}
+                ,{field:'days', title: '天数', width: '100', event: 'showCrvue'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                ,{field:'spot', title: '地点数', sort: true,width: '100', event: 'showCrvue'}
+                ,{field:'area', title: '区域', sort: true,width: '100', event: 'showCrvue'}
+
+            ]];
+            url = 'json/json3.json'
+            createTab(cols,url)
+            break
+        case 0:
+            cols = [[
+                {field:'imsi', width:120, title: 'IMSI', event: 'showCrvue'}
+                ,{field:'imei', width:120, title: 'IMEI', event: 'showCrvue'}
+                ,{field:'phone', width:100, title: '电话', event: 'showCrvue'}
+                ,{field:'address', width:150, title: '地址', event: 'showCrvue'}
+                ,{field:'imsiaddress', title: 'IMSI地址', width: '100', event: 'showCrvue'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                ,{field:'capturetime', title: '捕获时间', sort: true,width: '100', event: 'showCrvue'}
+                ,{field:'sign', title: '运营商', event: 'showCrvue'}
+            ]];
+            url = 'json/targetTarcing.json'
+            createTab(cols,url)
+            break
+    }
+
+})
