@@ -1,3 +1,7 @@
+var pageY = '';
+$('body').click(function(e){
+    pageY = e.pageY
+})
 $(function(){
     $(':input').labelauty();
 });
@@ -204,6 +208,9 @@ $('.ipt-btn').click(function (e) {
         var cols = '',url = '';
         switch (thisCheckId) {
             case 'areaData':
+                $('#operate').css({
+                    width:'394px'
+                })
                 cols = [[
                     {field:'id', width:120, sort: true, title: 'IMSI'}
                     ,{field:'username', width:120, title: '手机号', event: 'showCrvue'}
@@ -215,6 +222,9 @@ $('.ipt-btn').click(function (e) {
                 createTab(cols,url)
                 break
             case 'targetTracing':
+                $('#operate').css({
+                    width:'480px'
+                })
                 cols = [[
                     {field:'imsi', width:120, title: 'IMSI', event: 'showCrvue'}
                     ,{field:'imei', width:120, title: 'IMEI', event: 'showCrvue'}
@@ -240,8 +250,13 @@ $('.ipt-btn').click(function (e) {
         }
         $("#anter").addClass('hide')
         $("#main").addClass('hide')
-        $("#tab").removeClass('hide')
+        // $("#tab").removeClass('hide')
         $("#arget-text").addClass('hide')
+        var tableWidth = $('.layui-form').width()
+        $('#close').css({
+            left:tableWidth
+        })
+        $('#close').removeClass('hide')
     })
     $("#addImg").click(function (e) {
         $("#arget-text").val($("#arget-ipt").val() + "\n" + $("#arget-text").val())
@@ -291,7 +306,7 @@ function createTab(cols,url){
             ,url:url
             ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             ,cols:cols
-            ,width:385
+            // ,width:800
             ,height:300
         });
     })

@@ -73,6 +73,21 @@
     .act:hover{
       background: #9e0205;
     }
+    #allmap .layui-table-view{
+      position: fixed;
+      top:0;
+    }
+    #close{
+      position: fixed;
+      top:0;
+      width:20px;
+      height:20px;
+      border-radius: 50%;
+      background:#f00;
+      text-align: center;
+      line-height: 20px;
+      color:#fff;
+    }
   </style>
 </head>
 
@@ -86,9 +101,12 @@
   </div>
   <div class="list hide">
   </div>
+  <div id="tab"  lay-filter='test1'>
+  </div>
 </div>
 <div id="operate" class="hide">
 </div>
+<div id="close" class="hide">×</div>
 <script type="text/html" id="nav">
   <div class="flex-box list-cont">
     <div class="list-title act">
@@ -166,9 +184,6 @@
   </div>
   <textarea id="arget-text" disabled class="hide">
   </textarea>
-  </div>
-  <div id="tab" class="hide"  lay-filter='test1'>
-
   </div>
   <div id="anter" type="button">搜 索</div>
 </script>
