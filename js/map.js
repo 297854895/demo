@@ -10,10 +10,12 @@ layui.use(['form', 'layedit', 'laydate', 'table'], function(){
       ,laydate = layui.laydate;
     //日期
     laydate.render({
-        elem: '#date'
+        elem: '#test5'
+        ,type: 'datetime'
     });
     laydate.render({
-        elem: '#date1'
+        elem: '#test6'
+        ,type: 'datetime'
     });
 });
 $('.list').delegate('.list-title>span', 'click',function () {
