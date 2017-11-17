@@ -247,9 +247,11 @@ $('.ipt-btn').click(function (e) {
             //日期
             laydate.render({
                 elem: '#date'
+                ,type: 'datetime'
             });
             laydate.render({
                 elem: '#date1'
+                ,type: 'datetime'
             });
             table.render({
                 elem: '#tab1'
