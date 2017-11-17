@@ -572,6 +572,18 @@ $('#listBtn').delegate('button','click',function(){
             $('.layui-form').remove();
             break
         case 2:
+            cols = [[
+                {field:'imsi', width:150, title: 'IMSI', event: 'showCrvue'}
+                ,{field:'phone', width:100, title: '电话', event: 'showCrvue'}
+                ,{field:'sign', title: '运营商', event: 'showCrvue'}
+                ,{field:'times', width:140, title: '次数', event: 'showCrvue'}
+                ,{field:'days', title: '天数', width: '100', event: 'showCrvue'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                ,{field:'spot', title: '地点数', sort: true,width: '100', event: 'showCrvue'}
+                ,{field:'area', title: '区域', sort: true,width: '100', event: 'showCrvue'}
+
+            ]];
+            url = 'json/json3.json'
+            createTab(cols,url)
             break
         case 0:
             cols = [[
