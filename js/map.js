@@ -1,3 +1,5 @@
+
+var one = 1
 var pageY = '';
 $('body').click(function(e){
     pageY = e.pageY
@@ -261,19 +263,22 @@ $('.ipt-btn').click(function (e) {
     $("#addImg").click(function (e) {
         $("#arget-text").val($("#arget-ipt").val() + "\n" + $("#arget-text").val())
     })
-    // 随机向地图添加25个标注
-    var bounds = map.getBounds();
-    var sw = bounds.getSouthWest();
-    var ne = bounds.getNorthEast();
-    var lngSpan = Math.abs(sw.lng - ne.lng);
-    var latSpan = Math.abs(ne.lat - sw.lat);
-    for (var i = 0; i < 25; i ++) {
-        var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
-        var myIcon = new BMap.Icon("images/icon2-35.png", new BMap.Size(35,35));
-        var marker2 = new BMap.Marker(point,{icon:myIcon});  // 创建标注
-        map.addOverlay(marker2);// 将标注添加到地图中
+    if(one == 1){
+        // 随机向地图添加25个标注
+        var bounds = map.getBounds();
+        var sw = bounds.getSouthWest();
+        var ne = bounds.getNorthEast();
+        var lngSpan = Math.abs(sw.lng - ne.lng);
+        var latSpan = Math.abs(ne.lat - sw.lat);
+        for (var i = 0; i < 25; i ++) {
+            var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+            var myIcon = new BMap.Icon("images/icon2-35.png", new BMap.Size(35,35));
+            var marker2 = new BMap.Marker(point,{icon:myIcon});  // 创建标注
+            map.addOverlay(marker2);// 将标注添加到地图中
+        }
+        one = 2
     }
-
+    console.log(one)
 })
 //查询
 // 添加表格
@@ -331,6 +336,20 @@ function remove_overlay(){
     map.clearOverlays();
 }
 
+//关闭列表
+function closeList() {
+    $("#anter").removeClass('hide')
+    $("#main").removeClass('hide')
+    $("#tab").removeClass('hide')
+    $("#area-con").removeClass('hide')
+    $("#arget").addClass('hide')
+    $("#arget-text").removeClass('hide')
+    $(".layui-form").remove()
+    $(".list-title").removeClass("act")
+    $(".list-title:first").addClass("act")
+    $("#operate").addClass("hide")
+    $("#close").addClass("hide")
+}
 
 //配置中心
 
