@@ -343,11 +343,10 @@ function remove_overlay(){
 function closeList() {
     $("#anter").removeClass('hide')
     $("#main").removeClass('hide')
-    $("#tab").removeClass('hide')
     $("#area-con").removeClass('hide')
     $("#arget").addClass('hide')
     $("#arget-text").removeClass('hide')
-    $(".layui-form").remove()
+    $("#allmap > .layui-form").remove()
     $(".list-title").removeClass("act")
     $(".list-title:first").addClass("act")
     $("#operate").addClass("hide")
