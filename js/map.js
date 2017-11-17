@@ -391,3 +391,6 @@ function createCircle() {
     }
     drawingManager.setDrawingMode(BMAP_DRAWING_CIRCLE);
 }
+$('#operate').click(function(){
+    event.stopPropagation();
+})
