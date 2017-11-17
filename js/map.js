@@ -106,9 +106,34 @@ function createCruvue() {
     // curve.enableEditing(); //开启编辑功能
 }
 // 监听轨迹点点击事件
-function listenMarkerClick() {
+function listenMarkerClick(obj) {
+  var number = Number(obj.target.zc.innerText);
   event.stopPropagation()
-  console.log(123)
+  var sContent = '<div id="cruvueTable"><div id="cruvueTables"></div></div>';
+  var infoWindow = new BMap.InfoWindow(sContent)
+  this.openInfoWindow(infoWindow);
+  setTimeout(function() {
+    var table = layui.table
+    var cols = [[
+      {field:'id', width:120, sort: true, title: 'IMSI'}
+      ,{field:'username', width:120, title: '手机号'}
+      ,{field:'sex', width:100, title: '归属地'}
+      ,{field:'city', width:150, title: '时间'}
+      ,{field:'sign', title: '运营商', width: '100'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+    ]];
+
+    var url = 'json/table1.json'
+
+    table.render({
+      elem: '#cruvueTables'
+      ,url: url
+      ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+      ,cols: cols
+      // ,width:800
+      ,height:300
+    });
+    infoWindow.redraw()
+  }, 200)
 }
 // 百度地图API功能
 var map = new BMap.Map('map');
