@@ -86,6 +86,7 @@ function createCruvue() {
     for (var i = 0; i < 8; i ++) {
         var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
         var marker = new BMap.Marker(point);
+        marker.addEventListener('click', listenMarkerClick)
         var label = new BMap.Label(i+1,{offset:new BMap.Size(5, 0)})
         label.setStyle({
             border: 'none',
@@ -103,6 +104,11 @@ function createCruvue() {
     var curve = new BMapLib.CurveLine(pointsArr, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5}); //创建弧线对象
     map.addOverlay(curve); //添加到地图中
     // curve.enableEditing(); //开启编辑功能
+}
+// 监听轨迹点点击事件
+function listenMarkerClick() {
+  event.stopPropagation()
+  console.log(123)
 }
 // 百度地图API功能
 var map = new BMap.Map('map');
@@ -293,11 +299,11 @@ function createTab(cols,url){
             for(var key in obj.data) {
                 // var str = obj.data[key].length < 5 ? obj.data[key] : obj.data[key].substring(0,5) + '....'
                 thisHtml+= `
-                    <span>${obj.data[key]}</span>    
+                    <span>${obj.data[key]}</span>
                 `
             }
             var html = `
-                <div> ${thisHtml}</div> 
+                <div> ${thisHtml}</div>
                 <div id = "operateBtn">
                     <p>>><span>目标跟踪</span>|<span>临时布控</span>|<span>加入队列</span></p>
                     <p>>><span>同行IMSI</span>|<span>同行MAC</span>|<span>同行车牌</span>|<span>IMSI比对</span>|<span>IMEI比对</span>|<span>手机号</span></p>
