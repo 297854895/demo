@@ -40,6 +40,18 @@
       height:30px;
       margin:0 5px;
       line-height: 30px;
+      float:left;
+    }
+      display: inline-block;
+      width:150px;
+    }
+    #operate div:first-child span:nth-child(5){
+      width:30px;
+    }
+    #operate div:first-child span > em{
+      display: inline-block;
+      line-height: 25px;
+      width:100%;
     }
     #operate div:last-child {
       position: relative;
@@ -88,6 +100,44 @@
       text-align: center;
       line-height: 20px;
       color:#fff;
+    }
+    #tab{
+      position: fixed;
+      top: 40px;
+      left:15px;
+      background: #fff;
+      height:300px;
+      width:587px;
+      overflow-y: scroll;
+    }
+    #tableId tr{
+      border-left:1px solid #dedede;
+      border-top:1px solid #dedede;
+    }
+    #tableId tr th,#tableId tr td{
+      padding:0 10px;
+    }
+    #tableId td{
+      border-bottom:1px solid #dedede;
+      border-right:1px solid #dedede;
+    }
+    #tableId thead tr{
+      line-height: 30px;
+    }
+    #tableId tr th {
+        padding: 0 5px;
+      border-right:1px solid #dedede;
+      background-color: #f2f2f2;
+      }
+    #tableId tr td p {
+      margin:0;
+      line-height: 20px;
+    }
+    #tableId tbody tr:hover{
+      background: #f2f2f2;
+    }
+    #times{
+      min-height:100px;
     }
   </style>
 </head>

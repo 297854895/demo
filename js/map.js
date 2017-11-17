@@ -417,6 +417,146 @@ $('#operate').click(function(){
     event.stopPropagation();
 })
 function createUl(){
-    var ul = docuemnt.createElement('ul')
-    ul.id = 'ulId'
+    var table = document.createElement('table')
+    table.id = 'tableId'
+    var thead =`
+        <thead>
+        <tr>
+        <th>IMSI</th>
+        <th>IMEI</th>
+        <th>电话号码</th>
+        <th>地点</th>
+        <th>次数</th>
+        <th>运营商</th>
+</tr>
+</thead>
+    `
+    var html="";
+    $.getJSON("json/json2.json", function (data){
+        data.data.forEach(function (i,v) {
+            var add=""
+            i.address.forEach(function (item, index) {
+                add+=`
+                    <p>${item}</p>
+                `
+            })
+            var times=""
+            i.time.forEach(function (item, index) {
+                times+=`
+                    <p>
+                    ${item}
+</p>
+                `
+            })
+            html += `
+                <tr data-id=${v}>
+                <td>${i.imsi}</td>
+                <td>${i.imei}</td>
+                <td>${i.phone}</td>
+                <td>${add}</td>
+                <td>${times}</td>
+                <td>${i.sign}</td>
+</tr>
+            `
+        })
+        table.innerHTML = thead + '<tbody>' + html + '</tbody>'
+        console.log(table)
+        document.getElementById('tab').append(table)
+    })
 }
+createUl()
+$('#tab').delegate('tbody tr','click',function () {
+   var thisId = $(this).attr('data-id')
+    var data = tabdata[thisId]
+    var address = ''
+    var times = ''
+    data.address.forEach(function(item, idex){
+        address+= `
+            <em>${item}</em>    
+        `
+    })
+    data.time.forEach(function(item, index){
+        times+=`
+            <em>${item}</em>
+        `
+    })
+    var thisHtml = `
+        <span>${data.imsi}</span>
+        <span>${data.imei}</span>
+        <span>${data.phone}</span>
+        <span>${address}</span>
+        <span>${times}</span>
+        <span>${data.sign}</span>
+    `
+    var html = `
+                <div id="times"> ${thisHtml}</div> 
+                <div id = "operateBtn">
+                    <p>>><span>目标跟踪</span>|<span>临时布控</span>|<span>加入队列</span></p>
+                    <p>>><span>同行IMSI</span>|<span>同行MAC</span>|<span>同行车牌</span>|<span>IMSI比对</span>|<span>IMEI比对</span>|<span>手机号</span></p>
+                    <a href="javascript:void(0)" onclick="Anchor()"></a>
+                </div>
+            `
+    $('#operate').html(html).toggleClass('hide').css({
+        width:'600px'
+    })
+})
+
+
+var tabdata = [
+    {
+        "imsi":"460028684227868",
+        "imei":"386778867533230",
+        "phone": "13892330021",
+        "address":["龙头市转盘路口A","龙头市转盘路口B","龙头市转盘路口C"],
+        "time":["10", "20", "1"],
+        "sign":"移动"
+    },
+    {
+        "imsi":"460028684227867",
+        "imei":"386778867533231",
+        "phone": "13892330022",
+        "address":["黄花园大桥A","黄花园大桥B","黄花园大桥C"],
+        "time":["3", "15", "2"],
+        "sign":"移动"
+    },
+    {
+        "imsi":"460028684227867",
+        "imei":"386778867533231",
+        "phone": "13892330022",
+        "address":["江北城A","江北城B"],
+        "time":["3", "10"],
+        "sign":"移动"
+    },
+    {
+        "imsi":"460028684227860",
+        "imei":"386778867533232",
+        "phone": "13892330522",
+        "address":["南坪轻轨站A出口","南坪轻轨站B出口","南坪轻轨站C出口"],
+        "time":["9", "12","30"],
+        "sign":"联通"
+    },
+    {
+        "imsi":"460028684267860",
+        "imei":"386978867533232",
+        "phone": "13892330122",
+        "address":["红土地A","红土地B"],
+        "time":["9", "30"],
+        "sign":"电信"
+    },
+    {
+        "imsi":"460028684267060",
+        "imei":"386978867533232",
+        "phone": "13892330322",
+        "address":["红旗河沟A","红旗河沟B"],
+        "time":["9", "11"],
+        "sign":"电信"
+    },
+    {
+        "imsi":"460028684267020",
+        "imei":"386978867563232",
+        "phone": "13892330722",
+        "address":["观音桥","北城天街","九街"],
+        "time":["9", "11","20"],
+        "sign":"电信"
+    }
+];
