@@ -1,3 +1,7 @@
+var pageY = '';
+$('body').click(function(e){
+    pageY = e.pageY
+})
 $(function(){
   $(':input').labelauty();
 });
@@ -246,8 +250,13 @@ $('.ipt-btn').click(function (e) {
         }
         $("#anter").addClass('hide')
         $("#main").addClass('hide')
-        $("#tab").removeClass('hide')
+        // $("#tab").removeClass('hide')
         $("#arget-text").addClass('hide')
+        var tableWidth = $('.layui-form').width()
+        $('#close').css({
+            left:tableWidth
+        })
+        $('#close').removeClass('hide')
     })
     $("#addImg").click(function (e) {
         $("#arget-text").val($("#arget-ipt").val() + "\n" + $("#arget-text").val())
@@ -297,7 +306,7 @@ function createTab(cols,url){
             ,url:url
             ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             ,cols:cols
-            ,width:385
+            // ,width:800
             ,height:300
         });
     })
