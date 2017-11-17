@@ -224,6 +224,7 @@ $('.ipt-btn').click(function (e) {
                 createTab(cols,url)
                 break
             case 'targetTracing':
+                $("#listBtn").removeClass('hide')
                 $('#operate').css({
                     width:'480px'
                 })
@@ -278,7 +279,6 @@ $('.ipt-btn').click(function (e) {
         }
         one = 2
     }
-    console.log(one)
 })
 //查询
 // 添加表格

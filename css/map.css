@@ -258,3 +258,12 @@ input.labelauty + label{
   background: #efefef;
   border: 1px solid #cccccc;
 }
+.btns{
+  position: fixed;
+  z-index: 999999;
+  top:12px;
+  left: 16px;
+}
+.btns-list{
+  width: 254px;
+}
