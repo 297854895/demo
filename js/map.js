@@ -83,6 +83,7 @@ function createCruvue() {
     for (var i = 0; i < 8; i ++) {
         var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
         var marker = new BMap.Marker(point);
+        marker.addEventListener('click', listenMarkerClick)
         var label = new BMap.Label(i+1,{offset:new BMap.Size(5, 0)})
         label.setStyle({
             border: 'none',
@@ -100,6 +101,61 @@ function createCruvue() {
     var curve = new BMapLib.CurveLine(pointsArr, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5}); //创建弧线对象
     map.addOverlay(curve); //添加到地图中
     // curve.enableEditing(); //开启编辑功能
+}
+// 监听轨迹点点击事件
+function listenMarkerClick(obj) {
+  var number = Number(obj.target.zc.innerText);
+  var action = $('#listBtn .act').text();
+  event.stopPropagation()
+  var sContent = '<div id="cruvueTable"><div id="cruvueTables"></div></div>';
+  var infoWindow = new BMap.InfoWindow(sContent)
+  this.openInfoWindow(infoWindow);
+  setTimeout(function() {
+    var table = layui.table
+    var cols = action === '列表模式' ? [[
+      {field:'id', width:120, sort: true, title: 'IMSI'}
+      ,{field:'username', width:120, title: '手机号'}
+      ,{field:'sex', width:100, title: '归属地'}
+      ,{field:'city', width:150, title: '时间'}
+      ,{field:'sign', title: '运营商', width: '100'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+    ]] : action === '地点模式' ? [[
+      {field:'id', width:120, sort: true, title: 'IMSI'}
+      ,{field:'sex', width:100, title: '归属地'}
+      ,{field:'city', width:150, title: '时间'}
+    ]] : [[
+      {field:'id', width:120, sort: true, title: 'IMSI'}
+      ,{field:'sex', width:100, title: '归属地'}
+      ,{field:'city', width:150, title: '时间'}
+    ]]
+
+    // var url = 'json/table1.json'
+
+    var data = function () {
+      var dataArr = []
+      for (var i = 0; i< number; i++) {
+        dataArr.push(
+          {
+            "id": "46002868422786"+i,
+            "username": "1389233002"+i,
+            "sex": "重庆",
+            "city": "2017-11-10",
+            "sign":"移动"
+          }
+        )
+      }
+      return dataArr
+    }()
+
+    table.render({
+      elem: '#cruvueTables'
+      // ,url: url
+      ,data: data
+      ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+      ,cols: cols
+      // ,width:800
+    });
+    infoWindow.redraw()
+  }, 200)
 }
 // 百度地图API功能
 var map = new BMap.Map('map');
@@ -291,11 +347,11 @@ function createTab(cols,url){
             for(var key in obj.data) {
                 // var str = obj.data[key].length < 5 ? obj.data[key] : obj.data[key].substring(0,5) + '....'
                 thisHtml+= `
-                    <span>${obj.data[key]}</span>    
+                    <span>${obj.data[key]}</span>
                 `
             }
             var html = `
-                <div> ${thisHtml}</div> 
+                <div> ${thisHtml}</div>
                 <div id = "operateBtn">
                     <p>>><span>目标跟踪</span>|<span>临时布控</span>|<span>加入队列</span></p>
                     <p>>><span>同行IMSI</span>|<span>同行MAC</span>|<span>同行车牌</span>|<span>IMSI比对</span>|<span>IMEI比对</span>|<span>手机号</span></p>
@@ -493,7 +549,7 @@ $('#tab').delegate('tbody tr','click',function () {
     var times = ''
     data.address.forEach(function(item, idex){
         address+= `
-            <em>${item}</em>    
+            <em>${item}</em>
         `
     })
     data.time.forEach(function(item, index){
@@ -510,7 +566,7 @@ $('#tab').delegate('tbody tr','click',function () {
         <span>${data.sign}</span>
     `
     var html = `
-                <div id="times"> ${thisHtml}</div> 
+                <div id="times"> ${thisHtml}</div>
                 <div id = "operateBtn">
                     <p>>><span>目标跟踪</span>|<span>临时布控</span>|<span>加入队列</span></p>
                     <p>>><span>同行IMSI</span>|<span>同行MAC</span>|<span>同行车牌</span>|<span>IMSI比对</span>|<span>IMEI比对</span>|<span>手机号</span></p>
